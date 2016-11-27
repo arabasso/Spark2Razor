@@ -124,5 +124,12 @@ namespace Spark2Razor.Test
         {
             return Convert<SetRule>(input);
         }
+
+        [TestCase("<viewdata model=\"Sino.Workflow.Models.PesquisaDocumentoModel\"/>",
+            ExpectedResult = "\r\n@model Sino.Workflow.Models.PesquisaDocumentoModel\r\n")]
+        public string Model(string input)
+        {
+            return Convert<ModelRule>(input);
+        }
     }
 }

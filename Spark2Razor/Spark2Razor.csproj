@@ -55,6 +55,7 @@
     <Compile Include="Rules\ForRule.cs" />
     <Compile Include="Rules\IfRule.cs" />
     <Compile Include="Rules\LineRule.cs" />
+    <Compile Include="Rules\ModelRule.cs" />
     <Compile Include="Rules\Node.cs" />
     <Compile Include="Rules\RegexRule.cs" />
     <Compile Include="Rules\SetRule.cs" />
