@@ -99,9 +99,9 @@ namespace Spark2Razor.Test
         [TestCase("<use file=\"PesquisaDocumento\"/>",
             ExpectedResult = "\r\n@Html.Partial(\"PesquisaDocumento\")\r\n")]
         [TestCase("<use file=\"DocumentoItem\" documento=\"d\" />",
-            ExpectedResult = "\r\n@{ViewBag.PartialDocumento = d;}\r\n@Html.Partial(\"DocumentoItem\")\r\n")]
+            ExpectedResult = "\r\n@{ ViewBag.PartialDocumento = d; }\r\n@Html.Partial(\"DocumentoItem\")\r\n")]
         [TestCase("<use file=\"DocumentoItem\" documento=\"d\" nome=\"true\" />",
-            ExpectedResult = "\r\n@{ViewBag.PartialDocumento = d;}\r\n@{ViewBag.PartialNome = true;}\r\n@Html.Partial(\"DocumentoItem\")\r\n")]
+            ExpectedResult = "\r\n@{ ViewBag.PartialDocumento = d; }\r\n@{ ViewBag.PartialNome = true; }\r\n@Html.Partial(\"DocumentoItem\")\r\n")]
         public string Use_file_conversion(string input)
         {
             return Convert<UseFileRule>(input);

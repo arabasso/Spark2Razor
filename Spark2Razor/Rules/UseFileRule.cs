@@ -22,7 +22,7 @@ namespace Spark2Razor.Rules
 
             var arguments = node.Attributes.AllKeys
                 .Where(w => w != "file")
-                .Select(attribute => $"\r\n@{{ViewBag.Partial{_textInfo.ToTitleCase(attribute)} = {node.Attributes[attribute]};}}")
+                .Select(attribute => $"\r\n@{{ ViewBag.Partial{_textInfo.ToTitleCase(attribute)} = {node.Attributes[attribute]}; }}")
                 .ToList();
 
             var args = string.Join("", arguments);
