@@ -16,6 +16,14 @@ namespace Spark2Razor.Rules
                     DoubleQuotesEscaped
                 },
                 {
+                    EqualUnescaped,
+                    EqualEscaped
+                },
+                {
+                    LessThanUnescaped,
+                    LessThanEscaped
+                },
+                {
                     GreaterThanUnescaped,
                     GreaterThanEscaped
                 }

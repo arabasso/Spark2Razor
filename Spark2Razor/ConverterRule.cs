@@ -10,7 +10,10 @@ namespace Spark2Razor
         public const string DoubleQuotesUnescaped = "\"";
         public const string DoubleQuotesEscaped = "&&quot;;";
 
-        public const string LessThanUnescaped = "&";
+        public const string EqualUnescaped = "=";
+        public const string EqualEscaped = "&&eq;;";
+
+        public const string LessThanUnescaped = "<";
         public const string LessThanEscaped = "&&lt;;";
 
         public const string GreaterThanUnescaped = ">";

@@ -27,6 +27,10 @@ namespace Spark2Razor.Test
         }
 
         [TestCase("\"\\\"Text\\\"\"")]
+        [TestCase("<if condition=\"i == 10\"></if>")]
+        [TestCase("<if condition=\"i > 10\"></if>")]
+        [TestCase("<if condition=\"i < 10\"></if>")]
+        [TestCase("<if condition=\"i < 10 && i > 20\"></if>")]
         public void Escape_unescape_special_strings(string input)
         {
             Assert.That(input, Is.EqualTo(_converter.Convert(input)));
@@ -47,8 +51,8 @@ namespace Spark2Razor.Test
 
         [TestCase("<if condition=\"variable == null\">Text</if>",
             ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n")]
-        [TestCase("<if condition=\"variable == null\"><if condition=\"1 != 0\">Text</if></if>",
-            ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\n\r\n@if (1 != 0)\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<if condition=\"variable == null\"><if condition=\"1 < 0\">Text</if></if>",
+            ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\n\r\n@if (1 < 0)\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
         public string If_conversion(string input)
         {
             return Convert<IfRule>(input);
@@ -65,8 +69,8 @@ namespace Spark2Razor.Test
 
         [TestCase("<else>Text</else>",
             ExpectedResult = "\r\n@else\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n")]
-        [TestCase("<else><if condition=\"1 == 1\">Text</if><else>Text</else></else>",
-            ExpectedResult = "\r\n@else\r\n{\r\n\t<text>\r\n<if condition=\"1 == 1\">Text</if>\r\n@else\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<else><if condition=\"1 > 1\">Text</if><else>Text</else></else>",
+            ExpectedResult = "\r\n@else\r\n{\r\n\t<text>\r\n<if condition=\"1 > 1\">Text</if>\r\n@else\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
         public string Else_conversion(string input)
         {
             return Convert<ElseRule>(input);

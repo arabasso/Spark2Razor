@@ -38,9 +38,11 @@ namespace Spark2Razor.Test
         [TestCase("<a if=\"TempData[\"Value\"] == null\" href=\"#\">Link</a>",
             ExpectedResult = "<a if=\"TempData[&&quot;;Value&&quot;;] == null\" href=\"#\">Link</a>")]
         [TestCase("<a if=\"(value == \"Value\")\" href=\"#\">Link</a>",
-            ExpectedResult = "<a if=\"(value == &&quot;;Value&&quot;;)\" href=\"#\">Link</a>")]
+            ExpectedResult = "<a if=\"(value &&eq;;&&eq;; &&quot;;Value&&quot;;)\" href=\"#\">Link</a>")]
         [TestCase("${value > 10 ? \"10\" : \"\"}",
             ExpectedResult = "${value &&gt;; 10 ? &&quot;;10&&quot;; : &&quot;;&&quot;;}")]
+        [TestCase("${value < 10 ? \"10\" : \"\"}",
+            ExpectedResult = "${value &&lt;; 10 ? &&quot;;10&&quot;; : &&quot;;&&quot;;}")]
         public string Escape_expression_special_chars(string input)
         {
             return Convert<EscapeExpressionSpecialStringsRule>(input);
