@@ -9,9 +9,6 @@ namespace Spark2Razor.Rules
         public static readonly Regex
             ContentRegex = new Regex(@"\$\{((?>[^\{\}]+|\{(?<Depth>)|\}(?<-Depth>))*(?(Depth)(?!)))\}");
 
-        private static readonly Regex
-            TernaryOperatorRegex = new Regex(@"");
-
         public override string Convert(string text,
             int position,
             Match match)
@@ -26,7 +23,7 @@ namespace Spark2Razor.Rules
         private bool IsComplex(string input)
         {
             return Regex.IsMatch(input, @".+?\?.+?\:.+?")
-                || Regex.IsMatch(input, @"\(.+?\)\s*.+?");
+                || Regex.IsMatch(input, @"^\s*\(.+?\)\s*.+?");
         }
 
         public ContentRule() :

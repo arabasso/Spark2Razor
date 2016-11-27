@@ -44,6 +44,8 @@ namespace Spark2Razor.Test
             ExpectedResult = "@(value > 10 ? \"10\" : \"\")")]
         [TestCase("${(int)value}",
             ExpectedResult = "@((int)value)")]
+        [TestCase("${Html.DropDownListFor(m => m.SubTipo, new SelectList(ViewBag.SubTipos, \"Id\", \"Descricao\"), new { tabindex=\"2\", @class=\"float-left\" })}",
+            ExpectedResult = "@Html.DropDownListFor(m => m.SubTipo, new SelectList(ViewBag.SubTipos, \"Id\", \"Descricao\"), new { tabindex=\"2\", @class=\"float-left\" })")]
         public string Content_conversion(string input)
         {
             return Convert<ContentRule>(input);
