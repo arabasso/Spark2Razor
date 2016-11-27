@@ -49,8 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\BlockRule.cs" />
     <Compile Include="Rules\ContentRule.cs" />
+    <Compile Include="Rules\ElseRule.cs" />
     <Compile Include="Rules\EscapeExpressionSpecialStringsRule.cs" />
     <Compile Include="Rules\EscapeSpecialStringsRule.cs" />
+    <Compile Include="Rules\ForRule.cs" />
     <Compile Include="Rules\IfRule.cs" />
     <Compile Include="Rules\Node.cs" />
     <Compile Include="Rules\RegexRule.cs" />

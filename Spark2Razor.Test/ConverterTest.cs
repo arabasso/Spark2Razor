@@ -51,9 +51,25 @@ namespace Spark2Razor.Test
             ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\n\r\n@if (1 != 0)\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
         public string If_conversion(string input)
         {
-            var output = Convert<IfRule>(input);
+            return Convert<IfRule>(input);
+        }
 
-            return output;
+        [TestCase("<for each=\"var i in ViewBag.List\">${i}</for>",
+            ExpectedResult = "\r\n@foreach (var i in ViewBag.List)\r\n{\r\n\t<text>\r\n${i}\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<for each=\"var i in ViewBag.ListI\"><for each=\"var j in ViewBag.ListJ\">${i} - ${j}</for></for>",
+            ExpectedResult = "\r\n@foreach (var i in ViewBag.ListI)\r\n{\r\n\t<text>\r\n\r\n@foreach (var j in ViewBag.ListJ)\r\n{\r\n\t<text>\r\n${i} - ${j}\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+        public string For_conversion(string input)
+        {
+            return Convert<ForRule>(input);
+        }
+
+        [TestCase("<else>Text</else>",
+            ExpectedResult = "\r\n@else\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<else><if condition=\"1 == 1\">Text</if><else>Text</else></else>",
+            ExpectedResult = "\r\n@else\r\n{\r\n\t<text>\r\n<if condition=\"1 == 1\">Text</if>\r\n@else\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+        public string Else_conversion(string input)
+        {
+            return Convert<ElseRule>(input);
         }
     }
 }
