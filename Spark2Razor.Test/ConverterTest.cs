@@ -75,5 +75,14 @@ namespace Spark2Razor.Test
         {
             return Convert<ElseRule>(input);
         }
+
+        [TestCase("<use master=\"Site\" />",
+            ExpectedResult = "\r\n@{ Layout = \"~/Views/Shared/Site.cshtml\"; }\r\n")]
+        [TestCase("<use content=\"view\" />",
+            ExpectedResult = "<use content=\"view\" />")]
+        public string Use_master_conversion(string input)
+        {
+            return Convert<UseMasterRule>(input);
+        }
     }
 }

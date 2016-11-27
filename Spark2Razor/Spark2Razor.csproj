@@ -54,9 +54,11 @@
     <Compile Include="Rules\EscapeSpecialStringsRule.cs" />
     <Compile Include="Rules\ForRule.cs" />
     <Compile Include="Rules\IfRule.cs" />
+    <Compile Include="Rules\LineRule.cs" />
     <Compile Include="Rules\Node.cs" />
     <Compile Include="Rules\RegexRule.cs" />
     <Compile Include="Rules\UnescapeSpecialStringsRule.cs" />
+    <Compile Include="Rules\UseMasterRule.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

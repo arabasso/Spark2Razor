@@ -8,13 +8,6 @@ namespace Spark2Razor.Rules
         public static readonly Regex
             AttributesRegex = new Regex(@"([\w-]+)=""(.*?)""");
 
-        public Node(Match match) :
-            this(match.Groups[1].Value,
-                match.Groups[2].Value,
-                match.Groups["inner"].Value)
-        {
-        }
-
         public Node(string name,
             string attributes,
             string inner)

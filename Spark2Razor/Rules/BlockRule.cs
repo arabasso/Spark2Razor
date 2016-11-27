@@ -33,7 +33,11 @@ namespace Spark2Razor.Rules
             int position,
             Match match)
         {
-            return Convert(text, new Node(match), position, match);
+            var node = new Node(match.Groups[1].Value,
+                match.Groups[2].Value,
+                match.Groups["inner"].Value);
+
+            return Convert(text, node, position, match);
         }
 
         public virtual string Convert(string text,
