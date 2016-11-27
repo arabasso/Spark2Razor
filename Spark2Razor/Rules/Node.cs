@@ -6,7 +6,7 @@ namespace Spark2Razor.Rules
     public class Node
     {
         public static readonly Regex
-            AttributesRegex = new Regex(@"([\w-]+)=""(.*?)""");
+            AttributesRegex = new Regex(@"([\w-]+)\s*=\s*""(.*?)""");
 
         public Node(string name,
             string attributes,

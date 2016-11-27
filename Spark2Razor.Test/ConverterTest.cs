@@ -113,6 +113,12 @@ namespace Spark2Razor.Test
             ExpectedResult = "\r\n@{ var tramitacoes = ViewBag.Tramitacoes; }\r\n")]
         [TestCase("<var remetente=\"remetentes.Last()\" />",
             ExpectedResult = "\r\n@{ var remetente = remetentes.Last(); }\r\n")]
+        [TestCase("<var usuario=\"ViewBag.Usuario\" />",
+            ExpectedResult = "\r\n@{ var usuario = ViewBag.Usuario; }\r\n")]
+        [TestCase("<var permiteInclusao=\"documentoAutores.Any(a => usuarioAutores.Any(ua => ua.Autor.Id == a.Autor.Id)) || permiteAlteracao\" />",
+            ExpectedResult = "\r\n@{ var permiteInclusao = documentoAutores.Any(a => usuarioAutores.Any(ua => ua.Autor.Id == a.Autor.Id)) || permiteAlteracao; }\r\n")]
+        [TestCase("<var permissoes =\"ViewBag.ObterPermissao(Sino.Siscam.Dados.TipoModulo.Workflow)\" type=\"Sino.Permissao\" />",
+            ExpectedResult = "\r\n@{ var permissoes = ViewBag.ObterPermissao(Sino.Siscam.Dados.TipoModulo.Workflow) as Sino.Permissao; }\r\n")]
         public string Var_conversion(string input)
         {
             return Convert<VarRule>(input);
