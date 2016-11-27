@@ -70,9 +70,9 @@ namespace Spark2Razor.Test
         }
 
         [TestCase("<else>Text</else>",
-            ExpectedResult = "\r\n@else\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\nelse\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n")]
         [TestCase("<else><if condition=\"1 > 1\">Text</if><else>Text</else></else>",
-            ExpectedResult = "\r\n@else\r\n{\r\n\t<text>\r\n<if condition=\"1 > 1\">Text</if>\r\n@else\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\nelse\r\n{\r\n\t<text>\r\n<if condition=\"1 > 1\">Text</if>\r\nelse\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
         public string Else_conversion(string input)
         {
             return Convert<ElseRule>(input);

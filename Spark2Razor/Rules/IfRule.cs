@@ -5,7 +5,7 @@
         BlockRule
     {
         public IfRule() :
-            base("if", "if ({0})", "condition")
+            base("if", "@if ({0})", "condition")
         {
         }
     }

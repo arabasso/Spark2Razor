@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Spark2Razor.Rules
 {
@@ -10,7 +9,7 @@ namespace Spark2Razor.Rules
         private readonly string _format;
 
         protected BlockRule(string name) :
-            base(new Regex($@"<({name})\s*(.*?)\s*>(?<inner>(?><\1.*?>(?<LEVEL>)|</\1>(?<-LEVEL>)|(?!<\1.*?>|</\1>).)*(?(LEVEL)(?!)))</\1>"))
+            base(new Regex($@"<({name})\s*(.*?)\s*>(?<inner>(?><\1.*?>(?<LEVEL>)|</\1>(?<-LEVEL>)|\s?(?!<\1.*?>|</\1>).)*(?(LEVEL)(?!)))</\1>"))
         {
         }
 
@@ -56,7 +55,7 @@ namespace Spark2Razor.Rules
 
             var name = string.Format(_format, expression);
 
-            var value = $"\r\n@{name}\r\n{{\r\n\t<text>\r\n{inner}\r\n\t</text>\r\n}}\r\n";
+            var value = $"\r\n{name}\r\n{{\r\n\t<text>\r\n{inner}\r\n\t</text>\r\n}}\r\n";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

@@ -7,7 +7,7 @@ namespace Spark2Razor.Rules
         BlockRule
     {
         public ForRule() :
-            base("for", "foreach ({0})", "each")
+            base("for", "@foreach ({0})", "each")
         {
         }
     }
