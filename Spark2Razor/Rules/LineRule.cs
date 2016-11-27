@@ -25,8 +25,7 @@ namespace Spark2Razor.Rules
                 match.Groups[3].Value.Trim(),
                 null);
 
-            if (!string.IsNullOrEmpty(_attribute)
-                && !node.Attributes.AllKeys.Contains(_attribute)) return text;
+            if (!string.IsNullOrEmpty(_attribute) && !node.Attributes.AllKeys.Contains(_attribute)) return text;
 
             return Convert(text, node, position, match);
         }
