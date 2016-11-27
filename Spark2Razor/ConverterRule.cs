@@ -7,6 +7,8 @@ namespace Spark2Razor
         public const string BackSlashDoubleQuotesUnescaped = "\\\"";
         public const string BackSlashDoubleQuotesEscaped = "&&backslashquot;;";
 
+        public const string QuotesUnescaped = "'";
+
         public const string DoubleQuotesUnescaped = "\"";
         public const string DoubleQuotesEscaped = "&&quot;;";
 
@@ -29,5 +31,14 @@ namespace Spark2Razor
             BalancedBracketsRegex = new Regex(@"\[((?>[^\[\]]+|\[(?<Depth>)|\](?<-Depth>))*(?(Depth)(?!)))\]");
 
         public abstract string Convert(string input);
+
+        public static string ConvertToString(string input)
+        {
+            var text = Regex.Replace(input, $"^{QuotesUnescaped}(.{{2,}}?){QuotesUnescaped}$", $"{DoubleQuotesEscaped}$1{DoubleQuotesEscaped}");
+
+            text = Regex.Replace(text, $"^{QuotesUnescaped}{QuotesUnescaped}$", DoubleQuotesEscaped + DoubleQuotesEscaped);
+
+            return text;
+        }
     }
 }

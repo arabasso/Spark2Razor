@@ -57,6 +57,7 @@
     <Compile Include="Rules\LineRule.cs" />
     <Compile Include="Rules\Node.cs" />
     <Compile Include="Rules\RegexRule.cs" />
+    <Compile Include="Rules\SetRule.cs" />
     <Compile Include="Rules\UnescapeSpecialStringsRule.cs" />
     <Compile Include="Rules\UseContentRule.cs" />
     <Compile Include="Rules\UseFileRule.cs" />

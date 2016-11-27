@@ -117,5 +117,12 @@ namespace Spark2Razor.Test
         {
             return Convert<VarRule>(input);
         }
+
+        [TestCase("<set Descricao=\"'Caixa de Entrada'\" />",
+            ExpectedResult = "\r\n@{ ViewBag.Descricao = \"Caixa de Entrada\"; }\r\n")]
+        public string Set_conversion(string input)
+        {
+            return Convert<SetRule>(input);
+        }
     }
 }
