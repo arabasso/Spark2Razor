@@ -9,7 +9,8 @@ namespace Spark2Razor.Rules
         RegexRule
     {
         public static readonly Regex
-            BalancedDoubleQuotes = new Regex(@"""((?>""\b(?<DEPTH>)|\b""(?<-DEPTH>)|[^""]*)*(?(DEPTH)(?!)))""");
+            //BalancedDoubleQuotes = new Regex(@"""((?>""\b(?<DEPTH>)|\b""(?<-DEPTH>)|[^""]*)*(?(DEPTH)(?!)))""");
+            BalancedDoubleQuotes = new Regex("\"(.*?)\"");
 
         protected static Dictionary<string, string>
             SpecialStrings = new Dictionary<string, string>
@@ -46,11 +47,16 @@ namespace Spark2Razor.Rules
         {
             if (string.IsNullOrEmpty(match.Groups[1].Value)) return text;
 
+            if (match.Groups[1].Value.Contains("IEnumerable"))
+            {
+                
+            }
+
             var value = SpecialStrings
                 .Aggregate(match.Groups[1].Value,
                 (current, specialString) => current.Replace(specialString.Key, specialString.Value));
 
-            return text.Replace(match.Groups[1].Value, value);
+            return text.Replace(match.Groups[1].Value, value, position + match.Index, match.Length);
         }
     }
 }

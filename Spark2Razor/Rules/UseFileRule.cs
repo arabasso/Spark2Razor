@@ -27,7 +27,7 @@ namespace Spark2Razor.Rules
 
             var args = string.Join("", arguments);
 
-            var value = $"{args}\r\n@Html.Partial(\"{file}\")\r\n";
+            var value = $"{args}\r\n@Html.Partial(\"{file}\")";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

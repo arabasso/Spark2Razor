@@ -81,7 +81,7 @@ namespace Spark2Razor.Test
         }
 
         [TestCase("<use master=\"Site\" />",
-            ExpectedResult = "\r\n@{ Layout = \"~/Views/Shared/Site.cshtml\"; }\r\n")]
+            ExpectedResult = "@{ Layout = \"~/Views/Shared/Site.cshtml\"; }")]
         [TestCase("<use content=\"view\" />",
             ExpectedResult = "<use content=\"view\" />")]
         public string Use_master_conversion(string input)
@@ -92,60 +92,60 @@ namespace Spark2Razor.Test
         [TestCase("<use master=\"Site\" />",
             ExpectedResult = "<use master=\"Site\" />")]
         [TestCase("<use content=\"view\" />",
-            ExpectedResult = "\r\n@RenderBody()\r\n")]
+            ExpectedResult = "@RenderBody()")]
         public string Use_content_conversion(string input)
         {
             return Convert<UseContentRule>(input);
         }
 
         [TestCase("<use file=\"PesquisaDocumento\"/>",
-            ExpectedResult = "\r\n@Html.Partial(\"PesquisaDocumento\")\r\n")]
+            ExpectedResult = "\r\n@Html.Partial(\"PesquisaDocumento\")")]
         [TestCase("<use file=\"DocumentoItem\" documento=\"d\" />",
-            ExpectedResult = "\r\n@{ ViewBag.PartialDocumento = d; }\r\n@Html.Partial(\"DocumentoItem\")\r\n")]
+            ExpectedResult = "\r\n@{ ViewBag.PartialDocumento = d; }\r\n@Html.Partial(\"DocumentoItem\")")]
         [TestCase("<use file=\"DocumentoItem\" documento=\"d\" nome=\"true\" />",
-            ExpectedResult = "\r\n@{ ViewBag.PartialDocumento = d; }\r\n@{ ViewBag.PartialNome = true; }\r\n@Html.Partial(\"DocumentoItem\")\r\n")]
+            ExpectedResult = "\r\n@{ ViewBag.PartialDocumento = d; }\r\n@{ ViewBag.PartialNome = true; }\r\n@Html.Partial(\"DocumentoItem\")")]
         public string Use_file_conversion(string input)
         {
             return Convert<UseFileRule>(input);
         }
 
         [TestCase("<var tramitacoes=\"ViewBag.Tramitacoes\" type=\"IEnumerable<Siscam.Dados.Models.FluxoModel>\" />",
-            ExpectedResult = "\r\n@{ var tramitacoes = ViewBag.Tramitacoes as IEnumerable<Siscam.Dados.Models.FluxoModel>; }\r\n")]
+            ExpectedResult = "@{ var tramitacoes = ViewBag.Tramitacoes as IEnumerable<Siscam.Dados.Models.FluxoModel>; }")]
         [TestCase("<var tramitacoes=\"ViewBag.Tramitacoes\" />",
-            ExpectedResult = "\r\n@{ var tramitacoes = ViewBag.Tramitacoes; }\r\n")]
+            ExpectedResult = "@{ var tramitacoes = ViewBag.Tramitacoes; }")]
         [TestCase("<var remetente=\"remetentes.Last()\" />",
-            ExpectedResult = "\r\n@{ var remetente = remetentes.Last(); }\r\n")]
+            ExpectedResult = "@{ var remetente = remetentes.Last(); }")]
         [TestCase("<var usuario=\"ViewBag.Usuario\" />",
-            ExpectedResult = "\r\n@{ var usuario = ViewBag.Usuario; }\r\n")]
+            ExpectedResult = "@{ var usuario = ViewBag.Usuario; }")]
         [TestCase("<var permiteInclusao=\"documentoAutores.Any(a => usuarioAutores.Any(ua => ua.Autor.Id == a.Autor.Id)) || permiteAlteracao\" />",
-            ExpectedResult = "\r\n@{ var permiteInclusao = documentoAutores.Any(a => usuarioAutores.Any(ua => ua.Autor.Id == a.Autor.Id)) || permiteAlteracao; }\r\n")]
+            ExpectedResult = "@{ var permiteInclusao = documentoAutores.Any(a => usuarioAutores.Any(ua => ua.Autor.Id == a.Autor.Id)) || permiteAlteracao; }")]
         [TestCase("<var permissoes =\"ViewBag.ObterPermissao(Sino.Siscam.Dados.TipoModulo.Workflow)\" type=\"Sino.Permissao\" />",
-            ExpectedResult = "\r\n@{ var permissoes = ViewBag.ObterPermissao(Sino.Siscam.Dados.TipoModulo.Workflow) as Sino.Permissao; }\r\n")]
+            ExpectedResult = "@{ var permissoes = ViewBag.ObterPermissao(Sino.Siscam.Dados.TipoModulo.Workflow) as Sino.Permissao; }")]
         public string Var_conversion(string input)
         {
             return Convert<VarRule>(input);
         }
 
         [TestCase("<set Descricao=\"'Caixa de Entrada'\" />",
-            ExpectedResult = "\r\n@{ ViewBag.Descricao = \"Caixa de Entrada\"; }\r\n")]
+            ExpectedResult = "@{ ViewBag.Descricao = \"Caixa de Entrada\"; }")]
         public string Set_conversion(string input)
         {
             return Convert<SetRule>(input);
         }
 
         [TestCase("<viewdata model=\"Sino.Workflow.Models.PesquisaDocumentoModel\"/>",
-            ExpectedResult = "\r\n@model Sino.Workflow.Models.PesquisaDocumentoModel\r\n")]
+            ExpectedResult = "@model Sino.Workflow.Models.PesquisaDocumentoModel")]
         public string Model(string input)
         {
             return Convert<ModelRule>(input);
         }
 
         [TestCase("<global type=\"string\" Title=\"''\" />",
-            ExpectedResult = "\r\n@{ var Title = (ViewBag.Title as string) ?? \"\"; }\r\n")]
+            ExpectedResult = "@{ var Title = (ViewBag.Title as string) ?? \"\"; }")]
         [TestCase("<global type=\"string\" Descricao=\"''\" />",
-            ExpectedResult = "\r\n@{ var Descricao = (ViewBag.Descricao as string) ?? \"\"; }\r\n")]
+            ExpectedResult = "@{ var Descricao = (ViewBag.Descricao as string) ?? \"\"; }")]
         [TestCase("<global type=\"bool\" SemMenu=\"false\" />",
-            ExpectedResult = "\r\n@{ var SemMenu = (ViewBag.SemMenu as bool) ?? false; }\r\n")]
+            ExpectedResult = "@{ var SemMenu = (ViewBag.SemMenu as bool) ?? false; }")]
         public string Global_decl_conversion(string input)
         {
             return Convert<GlobalDeclRule>(input);

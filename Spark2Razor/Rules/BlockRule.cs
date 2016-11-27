@@ -9,7 +9,7 @@ namespace Spark2Razor.Rules
         private readonly string _format;
 
         protected BlockRule(string name) :
-            base(new Regex($@"<({name})\s*(.*?)\s*>(?<inner>(?><\1.*?>(?<LEVEL>)|</\1>(?<-LEVEL>)|\s?(?!<\1.*?>|</\1>).)*(?(LEVEL)(?!)))</\1>"))
+            base(new Regex($@"<({name})\s*(.*?)\s*>(?<inner>(?><\1.*?>(?<LEVEL>)|</\1>(?<-LEVEL>)|\s?(?!<\1.*?>|</\1>).)*\s?(?(LEVEL)(?!)))</\1>"))
         {
         }
 

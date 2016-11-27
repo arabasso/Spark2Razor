@@ -43,9 +43,15 @@ namespace Spark2Razor.Test
             ExpectedResult = "${value &&gt;; 10 ? &&quot;;10&&quot;; : &&quot;;&&quot;;}")]
         [TestCase("${value < 10 ? \"10\" : \"\"}",
             ExpectedResult = "${value &&lt;; 10 ? &&quot;;10&&quot;; : &&quot;;&&quot;;}")]
+        [TestCase("<viewdata model=\"Sino.Workflow.Models.DocumentoModel\" />\r\n<use master=\"Site\" />\r\n<set Descricao=\"'Documentos'\" />\r\n\r\n<var usuario=\"ViewBag.Usuario\" />\r\n<var tramitacoes=\"ViewBag.Tramitacoes\" type=\"IEnumerable<Sino.Siscam.Dados.Models.FluxoModel>\" />\r\n<var documentoAutores=\"ViewBag.Documento.Autores\" type=\"IEnumerable<Sino.Siscam.Dados.Models.DocumentoAutorModel>\" />\r\n",
+            ExpectedResult = "<viewdata model=\"Sino.Workflow.Models.DocumentoModel\" />\r\n<use master=\"Site\" />\r\n<set Descricao=\"'Documentos'\" />\r\n\r\n<var usuario=\"ViewBag.Usuario\" />\r\n<var tramitacoes=\"ViewBag.Tramitacoes\" type=\"IEnumerable&&lt;;Sino.Siscam.Dados.Models.FluxoModel&&gt;;\" />\r\n<var documentoAutores=\"ViewBag.Documento.Autores\" type=\"IEnumerable&&lt;;Sino.Siscam.Dados.Models.DocumentoAutorModel&&gt;;\" />\r\n")]
         public string Escape_expression_special_chars(string input)
         {
-            return Convert<EscapeExpressionSpecialStringsRule>(input);
+            var output = Convert<EscapeSpecialStringsRule>(input);
+
+            output = Convert<EscapeExpressionSpecialStringsRule>(output);
+
+            return output;
         }
 
         private class IterationRule :

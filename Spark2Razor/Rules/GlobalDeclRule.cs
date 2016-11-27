@@ -27,7 +27,7 @@ namespace Spark2Razor.Rules
                 attributeType = " as " + node.Attributes[attributeType];
             }
 
-            var value = $"\r\n@{{ var {attributeName} = (ViewBag.{attributeName}{attributeType}) ?? {attributeValue}; }}\r\n";
+            var value = $"@{{ var {attributeName} = (ViewBag.{attributeName}{attributeType}) ?? {attributeValue}; }}";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

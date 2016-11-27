@@ -15,7 +15,7 @@ namespace Spark2Razor.Rules
         {
             var model = node.Attributes["model"];
 
-            var value = $"\r\n@model {model}\r\n";
+            var value = $"@model {model}";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

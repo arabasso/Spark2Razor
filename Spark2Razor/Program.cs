@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Spark2Razor.Rules;
 
 namespace Spark2Razor
 {
@@ -17,9 +18,9 @@ namespace Spark2Razor
 
             Console.WriteLine("Converting files on {0}", path);
 
-            var viewEngineConverter = new Converter();
+            var converter = new Converter();
 
-            viewEngineConverter.AddRulesFromNamespace("Spark2Razor.Rules");
+            converter.AddRulesFromNamespace("Spark2Razor.Rules");
 
             var files = Directory.GetFiles(path, "*.spark", SearchOption.AllDirectories);
 
@@ -38,7 +39,7 @@ namespace Spark2Razor
 
                     Console.WriteLine("\t{0} -> {1}", file.Replace(path, ""), newFile.Replace(path, ""));
 
-                    var text = viewEngineConverter.Convert(File.ReadAllText(file));
+                    var text = converter.Convert(File.ReadAllText(file));
 
                     using (var stream = new StreamWriter(newFile, false, new UTF8Encoding(true)))
                     {

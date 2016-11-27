@@ -17,7 +17,7 @@ namespace Spark2Razor.Rules
 
             if (content != "view") return text;
 
-            var value = $"\r\n@RenderBody()\r\n";
+            var value = $"@RenderBody()";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

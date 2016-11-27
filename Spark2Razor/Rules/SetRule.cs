@@ -19,7 +19,7 @@ namespace Spark2Razor.Rules
 
             var attributeValue = ConvertToString(node.Attributes[attributeName]);
 
-            var value = $"\r\n@{{ ViewBag.{attributeName} = {attributeValue}; }}\r\n";
+            var value = $"@{{ ViewBag.{attributeName} = {attributeValue}; }}";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

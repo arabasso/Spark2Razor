@@ -30,11 +30,7 @@ namespace Spark2Razor.Rules
 
                     text = Convert(text, position, match);
 
-                    length = text.Length - length;
-
-                    position += match.Index + match.Length + length;
-
-                    if (position >= text.Length) break;
+                    position += match.Index + match.Length + (text.Length - length);
 
                     match = regex.Match(text.Substring(position));
                 }
