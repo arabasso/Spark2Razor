@@ -84,5 +84,14 @@ namespace Spark2Razor.Test
         {
             return Convert<UseMasterRule>(input);
         }
+
+        [TestCase("<use master=\"Site\" />",
+            ExpectedResult = "<use master=\"Site\" />")]
+        [TestCase("<use content=\"view\" />",
+            ExpectedResult = "\r\n@RenderBody()\r\n")]
+        public string Use_content_conversion(string input)
+        {
+            return Convert<UseContentRule>(input);
+        }
     }
 }
