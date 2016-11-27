@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Text.RegularExpressions;
+using NUnit.Framework;
 using Spark2Razor.Spark;
 
 namespace Spark2Razor.Test
@@ -43,6 +44,35 @@ namespace Spark2Razor.Test
         public string Escape_expression_special_chars(string input)
         {
             return Convert<EscapeExpressionSpecialStringsRule>(input);
+        }
+
+        private class IterationRule :
+            RegexIterationRule
+        {
+            public int Count { get; private set; }
+
+            public IterationRule() :
+                base(ContentRule.ContentRegex)
+            {
+            }
+
+            public override string Convert(string text, int position, Match match)
+            {
+                Count++;
+
+                return text;
+            }
+        }
+
+        [TestCase("${Html.LabelFor(m => m.Name, new { Id = 1 }, null)}",
+            ExpectedResult = 1)]
+        public int Regex_iteration(string input)
+        {
+            var rule = new IterationRule();
+
+            rule.Convert(input);
+
+            return rule.Count;
         }
     }
 }
