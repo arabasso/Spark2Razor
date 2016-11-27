@@ -131,5 +131,16 @@ namespace Spark2Razor.Test
         {
             return Convert<ModelRule>(input);
         }
+
+        [TestCase("<global type=\"string\" Title=\"''\" />",
+            ExpectedResult = "\r\n@{ var Title = (ViewBag.Title as string) ?? \"\"; }\r\n")]
+        [TestCase("<global type=\"string\" Descricao=\"''\" />",
+            ExpectedResult = "\r\n@{ var Descricao = (ViewBag.Descricao as string) ?? \"\"; }\r\n")]
+        [TestCase("<global type=\"bool\" SemMenu=\"false\" />",
+            ExpectedResult = "\r\n@{ var SemMenu = (ViewBag.SemMenu as bool) ?? false; }\r\n")]
+        public string Global_decl_conversion(string input)
+        {
+            return Convert<GlobalDeclRule>(input);
+        }
     }
 }

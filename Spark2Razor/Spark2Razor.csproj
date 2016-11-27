@@ -53,6 +53,7 @@
     <Compile Include="Rules\EscapeExpressionSpecialStringsRule.cs" />
     <Compile Include="Rules\EscapeSpecialStringsRule.cs" />
     <Compile Include="Rules\ForRule.cs" />
+    <Compile Include="Rules\GlobalDeclRule.cs" />
     <Compile Include="Rules\IfRule.cs" />
     <Compile Include="Rules\LineRule.cs" />
     <Compile Include="Rules\ModelRule.cs" />
