@@ -1,14 +1,14 @@
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Spark2Razor.Rules
 {
+    [ConverterRuleOrder(10)]
     public class UseFileRule :
         LineRule
     {
-        private TextInfo _textInfo;
+        private readonly TextInfo _textInfo;
 
         public UseFileRule() :
             base("use", "file")

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Spark2Razor.Rules
@@ -25,9 +26,13 @@ namespace Spark2Razor.Rules
 
                 while (match.Success)
                 {
+                    var length = text.Length;
+
                     text = Convert(text, position, match);
 
-                    position += match.Index + match.Length;
+                    length = text.Length - length;
+
+                    position += match.Index + match.Length + length;
 
                     if (position >= text.Length) break;
 

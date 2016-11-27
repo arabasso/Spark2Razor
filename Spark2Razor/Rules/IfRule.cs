@@ -1,7 +1,6 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Spark2Razor.Rules
+﻿namespace Spark2Razor.Rules
 {
+    [ConverterRuleOrder(10)]
     public class IfRule :
         BlockRule
     {

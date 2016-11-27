@@ -2,6 +2,7 @@
 
 namespace Spark2Razor.Rules
 {
+    [ConverterRuleOrder(10)]
     public class UseMasterRule :
         LineRule
     {

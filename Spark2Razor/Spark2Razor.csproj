@@ -61,6 +61,7 @@
     <Compile Include="Rules\UseContentRule.cs" />
     <Compile Include="Rules\UseFileRule.cs" />
     <Compile Include="Rules\UseMasterRule.cs" />
+    <Compile Include="Rules\VarRule.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,6 +8,9 @@ namespace Spark2Razor.Rules
     public class EscapeExpressionSpecialStringsRule :
         RegexRule
     {
+        public static readonly Regex
+            BalancedDoubleQuotes = new Regex(@"""((?>""\b(?<DEPTH>)|\b""(?<-DEPTH>)|[^""]*)*(?(DEPTH)(?!)))""");
+
         protected static Dictionary<string, string>
             SpecialStrings = new Dictionary<string, string>
             {
@@ -32,7 +35,8 @@ namespace Spark2Razor.Rules
         public EscapeExpressionSpecialStringsRule() :
             base(ContentRule.ContentRegex,
                 BalancedParenthesisRegex,
-                BalancedBracketsRegex)
+                BalancedBracketsRegex,
+                BalancedDoubleQuotes)
         {
         }
 
@@ -40,7 +44,13 @@ namespace Spark2Razor.Rules
             int position,
             Match match)
         {
-            return SpecialStrings.Aggregate(text, (current, specialString) => current.Replace(specialString.Key, specialString.Value, position + match.Index, match.Length));
+            if (string.IsNullOrEmpty(match.Groups[1].Value)) return text;
+
+            var value = SpecialStrings
+                .Aggregate(match.Groups[1].Value,
+                (current, specialString) => current.Replace(specialString.Key, specialString.Value));
+
+            return text.Replace(match.Groups[1].Value, value);
         }
     }
 }

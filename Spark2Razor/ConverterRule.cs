@@ -23,10 +23,10 @@ namespace Spark2Razor
         public const string AndAlsoEscaped = "&&andalsoamp;;";
 
         public static readonly Regex
-            BalancedParenthesisRegex = new Regex(@"\((?>[^\(\)]+|\((?<Depth>)|\)(?<-Depth>))*(?(Depth)(?!))\)");
+            BalancedParenthesisRegex = new Regex(@"\(((?>[^\(\)]+|\((?<Depth>)|\)(?<-Depth>))*(?(Depth)(?!)))\)");
 
         public static readonly Regex
-            BalancedBracketsRegex = new Regex(@"\[(?>[^\[\]]+|\[(?<Depth>)|\](?<-Depth>))*(?(Depth)(?!))\]");
+            BalancedBracketsRegex = new Regex(@"\[((?>[^\[\]]+|\[(?<Depth>)|\](?<-Depth>))*(?(Depth)(?!)))\]");
 
         public abstract string Convert(string input);
     }

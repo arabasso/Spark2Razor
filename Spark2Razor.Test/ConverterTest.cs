@@ -55,7 +55,9 @@ namespace Spark2Razor.Test
             ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\n\r\n@if (1 < 0)\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
         public string If_conversion(string input)
         {
-            return Convert<IfRule>(input);
+            var output = Convert<IfRule>(input);
+
+            return output;
         }
 
         [TestCase("<for each=\"var i in ViewBag.List\">${i}</for>",
@@ -103,6 +105,17 @@ namespace Spark2Razor.Test
         public string Use_file_conversion(string input)
         {
             return Convert<UseFileRule>(input);
+        }
+
+        [TestCase("<var tramitacoes=\"ViewBag.Tramitacoes\" type=\"IEnumerable<Siscam.Dados.Models.FluxoModel>\" />",
+            ExpectedResult = "\r\n@{ var tramitacoes = ViewBag.Tramitacoes as IEnumerable<Siscam.Dados.Models.FluxoModel>; }\r\n")]
+        [TestCase("<var tramitacoes=\"ViewBag.Tramitacoes\" />",
+            ExpectedResult = "\r\n@{ var tramitacoes = ViewBag.Tramitacoes; }\r\n")]
+        [TestCase("<var remetente=\"remetentes.Last()\" />",
+            ExpectedResult = "\r\n@{ var remetente = remetentes.Last(); }\r\n")]
+        public string Var_conversion(string input)
+        {
+            return Convert<VarRule>(input);
         }
     }
 }
