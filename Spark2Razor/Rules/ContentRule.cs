@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Spark2Razor.Spark
+namespace Spark2Razor.Rules
 {
     [ConverterRuleOrder(2)]
     public class ContentRule :
-        RegexIterationRule
+        RegexRule
     {
         public static readonly Regex
             ContentRegex = new Regex(@"\$\{((?>[^\{\}]+|\{(?<Depth>)|\}(?<-Depth>))*(?(Depth)(?!)))\}");
@@ -12,7 +12,9 @@ namespace Spark2Razor.Spark
         private static readonly Regex
             TernaryOperatorRegex = new Regex(@"");
 
-        public override string Convert(string text, int position, Match match)
+        public override string Convert(string text,
+            int position,
+            Match match)
         {
             var value = match.Groups[1].Value;
 

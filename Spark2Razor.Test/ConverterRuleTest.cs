@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using NUnit.Framework;
-using Spark2Razor.Spark;
+using Spark2Razor.Rules;
 
 namespace Spark2Razor.Test
 {
@@ -47,7 +47,7 @@ namespace Spark2Razor.Test
         }
 
         private class IterationRule :
-            RegexIterationRule
+            RegexRule
         {
             public int Count { get; private set; }
 

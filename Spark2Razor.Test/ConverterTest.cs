@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Spark2Razor.Spark;
+using Spark2Razor.Rules;
 
 namespace Spark2Razor.Test
 {
@@ -43,6 +43,17 @@ namespace Spark2Razor.Test
         public string Content_conversion(string input)
         {
             return Convert<ContentRule>(input);
+        }
+
+        [TestCase("<if condition=\"variable == null\">Text</if>",
+            ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<if condition=\"variable == null\"><if condition=\"1 != 0\">Text</if></if>",
+            ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\n\r\n@if (1 != 0)\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+        public string If_conversion(string input)
+        {
+            var output = Convert<IfRule>(input);
+
+            return output;
         }
     }
 }

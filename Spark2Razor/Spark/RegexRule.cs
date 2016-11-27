@@ -4,12 +4,12 @@ using System.Text.RegularExpressions;
 
 namespace Spark2Razor.Spark
 {
-    public abstract class RegexIterationRule :
+    public abstract class RegexRule :
         ConverterRule
     {
         private readonly List<Regex> _regex;
 
-        protected RegexIterationRule(params Regex [] regex)
+        protected RegexRule(params Regex [] regex)
         {
             _regex = new List<Regex>(regex);
         }

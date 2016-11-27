@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Spark2Razor.Spark
+namespace Spark2Razor.Rules
 {
     [ConverterRuleOrder(1)]
     public class EscapeExpressionSpecialStringsRule :
-        RegexIterationRule
+        RegexRule
     {
         protected static Dictionary<string, string>
             SpecialStrings = new Dictionary<string, string>
@@ -28,7 +28,9 @@ namespace Spark2Razor.Spark
         {
         }
 
-        public override string Convert(string text, int position, Match match)
+        public override string Convert(string text,
+            int position,
+            Match match)
         {
             return SpecialStrings.Aggregate(text, (current, specialString) => current.Replace(specialString.Key, specialString.Value, position + match.Index, match.Length));
         }

@@ -1,26 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Spark2Razor.Spark
+namespace Spark2Razor.Rules
 {
-    [ConverterRuleOrder(1000)]
-    public class UnescapeSpecialStringsRule :
+    [ConverterRuleOrder(0)]
+    public class EscapeSpecialStringsRule :
         ConverterRule
     {
         protected static Dictionary<string, string>
             SpecialStrings = new Dictionary<string, string>
             {
                 {
-                    BackSlashDoubleQuotesEscaped,
-                    BackSlashDoubleQuotesUnescaped
-                },
-                {
-                    DoubleQuotesEscaped,
-                    DoubleQuotesUnescaped
-                },
-                {
-                    GreaterThanEscaped,
-                    GreaterThanUnescaped
+                    BackSlashDoubleQuotesUnescaped,
+                    BackSlashDoubleQuotesEscaped
                 }
             };
 
