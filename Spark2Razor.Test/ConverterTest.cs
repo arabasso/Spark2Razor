@@ -54,9 +54,9 @@ namespace Spark2Razor.Test
         }
 
         [TestCase("<if condition=\"variable == null\">Text</if>",
-            ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\n\t\tText\r\n\t</text>\r\n}\r\n")]
         [TestCase("<if condition=\"variable == null\"><if condition=\"1 < 0\">Text</if></if>",
-            ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\n\r\n@if (1 < 0)\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@if (variable == null)\r\n{\r\n\t<text>\r\n\t\t\r\n\t@if (1 < 0)\r\n\t{\r\n\t\t<text>\r\n\t\t\tText\r\n\t\t</text>\r\n\t}\r\n\t\r\n\t</text>\r\n}\r\n")]
         public string If_conversion(string input)
         {
             var output = Convert<IfRule>(input);
@@ -65,20 +65,20 @@ namespace Spark2Razor.Test
         }
 
         [TestCase("<for each=\"var i in ViewBag.List\">${i}</for>",
-            ExpectedResult = "\r\n@foreach (var i in ViewBag.List)\r\n{\r\n\t<text>\r\n${i}\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@foreach (var i in ViewBag.List)\r\n{\r\n\t<text>\r\n\t\t${i}\r\n\t</text>\r\n}\r\n")]
         [TestCase("<for each=\"var i in ViewBag.ListI\"><for each=\"var j in ViewBag.ListJ\">${i} - ${j}</for></for>",
-            ExpectedResult = "\r\n@foreach (var i in ViewBag.ListI)\r\n{\r\n\t<text>\r\n\r\n@foreach (var j in ViewBag.ListJ)\r\n{\r\n\t<text>\r\n${i} - ${j}\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@foreach (var i in ViewBag.ListI)\r\n{\r\n\t<text>\r\n\t\t\r\n\t@foreach (var j in ViewBag.ListJ)\r\n\t{\r\n\t\t<text>\r\n\t\t\t${i} - ${j}\r\n\t\t</text>\r\n\t}\r\n\t\r\n\t</text>\r\n}\r\n")]
         [TestCase("<for each=\"var i in ViewBag.ListI\"><for each=\"var j in ViewBag.ListJ\">${iIndex} - ${j}</for></for>",
-            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (var i in ViewBag.ListI)\r\n{\r\n\tvar iIndex = __i0;\r\n\t__i0++;\r\n\t<text>\r\n\r\n@foreach (var j in ViewBag.ListJ)\r\n{\r\n\t<text>\r\n${iIndex} - ${j}\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (var i in ViewBag.ListI)\r\n{\r\n\tvar iIndex = __i0;\r\n\t__i0++;\r\n\t<text>\r\n\t\t\r\n\t@foreach (var j in ViewBag.ListJ)\r\n\t{\r\n\t\t<text>\r\n\t\t\t${iIndex} - ${j}\r\n\t\t</text>\r\n\t}\r\n\t\r\n\t</text>\r\n}\r\n")]
         public string For_conversion(string input)
         {
             return Convert<ForRule>(input);
         }
 
         [TestCase("<else>Text</else>",
-            ExpectedResult = "\r\nelse\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\nelse\r\n{\r\n\t<text>\r\n\t\tText\r\n\t</text>\r\n}\r\n")]
         [TestCase("<else><if condition=\"1 > 1\">Text</if><else>Text</else></else>",
-            ExpectedResult = "\r\nelse\r\n{\r\n\t<text>\r\n<if condition=\"1 > 1\">Text</if>\r\nelse\r\n{\r\n\t<text>\r\nText\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\nelse\r\n{\r\n\t<text>\r\n\t\t<if condition=\"1 > 1\">Text</if>\r\n\telse\r\n\t{\r\n\t\t<text>\r\n\t\t\tText\r\n\t\t</text>\r\n\t}\r\n\t\r\n\t</text>\r\n}\r\n")]
         public string Else_conversion(string input)
         {
             return Convert<ElseRule>(input);
@@ -156,30 +156,30 @@ namespace Spark2Razor.Test
         }
 
         [TestCase("<div if=\"!true\">Text</div>",
-            ExpectedResult = "\r\n@if (!true)\r\n{\r\n\t<text>\r\n<div>Text</div>\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@if (!true)\r\n{\r\n\t<text>\r\n\t\t<div>Text</div>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<div class=\"clear-both\" if=\"!string.IsNullOrEmpty(tramite.Complemento)\">Text</div>",
-            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<div class=\"clear-both\">Text</div>\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n\t\t<div class=\"clear-both\">Text</div>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<div if=\"!string.IsNullOrEmpty(tramite.Complemento)\" class=\"clear-both\">Text</div>",
-            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<div class=\"clear-both\">Text</div>\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n\t\t<div class=\"clear-both\">Text</div>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<img src=\"~/Dot.gif\" if=\"!string.IsNullOrEmpty(tramite.Complemento)\" />",
-            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<img src=\"~/Dot.gif\" />\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n\t\t<img src=\"~/Dot.gif\" />\r\n\t</text>\r\n}\r\n")]
         [TestCase("<div class=\"clear-both\" if=\"!string.IsNullOrEmpty(tramite.Complemento)\"><img src=\"~/Dot.gif\" if=\"!string.IsNullOrEmpty(tramite.Complemento)\" /></div>",
-            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<div class=\"clear-both\">\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<img src=\"~/Dot.gif\" />\r\n\t</text>\r\n}\r\n</div>\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n\t\t<div class=\"clear-both\">\r\n\t@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n\t{\r\n\t\t<text>\r\n\t\t\t<img src=\"~/Dot.gif\" />\r\n\t\t</text>\r\n\t}\r\n\t</div>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<div if=\"true\"><span><img src=\"~/Dot.gif\" if=\"false\" /></span></div>",
-            ExpectedResult = "\r\n@if (true)\r\n{\r\n\t<text>\r\n<div><span>\r\n@if (false)\r\n{\r\n\t<text>\r\n<img src=\"~/Dot.gif\" />\r\n\t</text>\r\n}\r\n</span></div>\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@if (true)\r\n{\r\n\t<text>\r\n\t\t<div><span>\r\n\t@if (false)\r\n\t{\r\n\t\t<text>\r\n\t\t\t<img src=\"~/Dot.gif\" />\r\n\t\t</text>\r\n\t}\r\n\t</span></div>\r\n\t</text>\r\n}\r\n")]
         public string Attribute_if_conversion(string input)
         {
             return Convert<AttributeIfRule>(input);
         }
 
         [TestCase("<div each=\"var t in tramitacoes.Where(w => w.Status != StatusFluxo.Finalizado)\" class=\"text-center\">Text</div>",
-            ExpectedResult = "\r\n@foreach (var t in tramitacoes.Where(w => w.Status != StatusFluxo.Finalizado))\r\n{\r\n\t<text>\r\n<div class=\"text-center\">Text</div>\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@foreach (var t in tramitacoes.Where(w => w.Status != StatusFluxo.Finalizado))\r\n{\r\n\t<text>\r\n\t\t<div class=\"text-center\">Text</div>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<option each=\"Sino.Siscam.Dados.Models.AutorModel autor in remetentes\" value=\"${autor.Id}\" data-tipo=\"${(int)autor.TipoAutor}\" data-tipo-descricao=\"${Sino.Siscam.Dados.Descricoes.TiposAutorLista.First(f => f.Tipo == autor.TipoAutor).Descricao}\">${autor.UsarApelido ? autor.Apelido : autor.Nome}</option>",
-            ExpectedResult = "\r\n@foreach (Sino.Siscam.Dados.Models.AutorModel autor in remetentes)\r\n{\r\n\t<text>\r\n<option value=\"${autor.Id}\" data-tipo=\"${(int)autor.TipoAutor}\" data-tipo-descricao=\"${Sino.Siscam.Dados.Descricoes.TiposAutorLista.First(f => f.Tipo == autor.TipoAutor).Descricao}\">${autor.UsarApelido ? autor.Apelido : autor.Nome}</option>\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@foreach (Sino.Siscam.Dados.Models.AutorModel autor in remetentes)\r\n{\r\n\t<text>\r\n\t\t<option value=\"${autor.Id}\" data-tipo=\"${(int)autor.TipoAutor}\" data-tipo-descricao=\"${Sino.Siscam.Dados.Descricoes.TiposAutorLista.First(f => f.Tipo == autor.TipoAutor).Descricao}\">${autor.UsarApelido ? autor.Apelido : autor.Nome}</option>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<div each=\"var t in tramitacoes\" class=\"item item-impar?{tIsEven}\"><use file=\"FluxoItem\" fluxo=\"t\" entrada=\"false\" /></div>",
-            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (var t in tramitacoes)\r\n{\r\n\tvar tIsEven = (__i0 % 2 == 0);\r\n\t__i0++;\r\n\t<text>\r\n<div class=\"item item-impar?{tIsEven}\"><use file=\"FluxoItem\" fluxo=\"t\" entrada=\"false\" /></div>\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (var t in tramitacoes)\r\n{\r\n\tvar tIsEven = (__i0 % 2 == 0);\r\n\t__i0++;\r\n\t<text>\r\n\t\t<div class=\"item item-impar?{tIsEven}\"><use file=\"FluxoItem\" fluxo=\"t\" entrada=\"false\" /></div>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<input each=\"Siscam.Dados.Models.FluxoModel tramitacao in ViewBag.Tramitacao\" type=\"hidden\" name=\"Tramitacao[${tramitacaoIndex}]\" value=\"${tramitacao.Id}\" />",
-            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (Siscam.Dados.Models.FluxoModel tramitacao in ViewBag.Tramitacao)\r\n{\r\n\tvar tramitacaoIndex = __i0;\r\n\t__i0++;\r\n\t<text>\r\n<input type=\"hidden\" name=\"Tramitacao[${tramitacaoIndex}]\" value=\"${tramitacao.Id}\" />\r\n\t</text>\r\n}\r\n")]
+            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (Siscam.Dados.Models.FluxoModel tramitacao in ViewBag.Tramitacao)\r\n{\r\n\tvar tramitacaoIndex = __i0;\r\n\t__i0++;\r\n\t<text>\r\n\t\t<input type=\"hidden\" name=\"Tramitacao[${tramitacaoIndex}]\" value=\"${tramitacao.Id}\" />\r\n\t</text>\r\n}\r\n")]
         public string Attribute_each_conversion(string input)
         {
             var output = Convert<AttributeEachRule>(input);
