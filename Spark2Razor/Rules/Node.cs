@@ -37,7 +37,7 @@ namespace Spark2Razor.Rules
 
         public string Name { get; }
         public NameValueCollection Attributes { get; } = new NameValueCollection();
-        public string Inner { get; }
+        public string Inner { get; set; }
         public bool IsBlock { get; set; }
 
         public string Text

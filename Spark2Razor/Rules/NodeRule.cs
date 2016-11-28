@@ -9,7 +9,7 @@ namespace Spark2Razor.Rules
         private readonly string _attribute;
 
         protected NodeRule(string tag) :
-            base(new Regex($@"<({tag})\s*(.*?)\s*>(?<inner>(?><\1.*?>(?<LEVEL>)|</\1>(?<-LEVEL>)|\s?(?!<\1.*?>|</\1>).)*\s?(?(LEVEL)(?!)))</\1>"),
+            base(new Regex($@"<({tag})\s*(.*?)\s*>(?<inner>(?>\s?<\1.*?>(?<LEVEL>)|</\1>(?<-LEVEL>)|\s?(?!<\1.*?>|</\1>).)*\s?(?(LEVEL)(?!)))</\1>"),
                 new Regex($@"(<({tag})([^>]*))(?>/)>"))
         {
         }
@@ -41,7 +41,7 @@ namespace Spark2Razor.Rules
             {
                 if (!node.IsBlock) return text;
 
-                node = new Node(node.Name, node.Attributes, Convert(node.Inner), node.IsBlock);
+                node.Inner = Convert(node.Inner);
 
                 return text.Replace(match.Value, node.Text, position + match.Index, match.Length);
             }

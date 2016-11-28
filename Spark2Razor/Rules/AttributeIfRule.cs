@@ -23,7 +23,7 @@ namespace Spark2Razor.Rules
 
             if (node.IsBlock)
             {
-                node = new Node(node.Name, node.Attributes, Convert(node.Inner), node.IsBlock);
+                node.Inner = Convert(node.Inner);
             }
 
             var inner = node.Text;
