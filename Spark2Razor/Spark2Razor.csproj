@@ -49,8 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\AttributeEachRule.cs" />
     <Compile Include="Rules\AttributeIfRule.cs" />
+    <Compile Include="Rules\AttributeRule.cs" />
     <Compile Include="Rules\EachArguments.cs" />
     <Compile Include="Rules\EachExpression.cs" />
+    <Compile Include="Rules\HasAttributeRule.cs" />
     <Compile Include="Rules\NodeRule.cs" />
     <Compile Include="Rules\BlockRule.cs" />
     <Compile Include="Rules\ContentRule.cs" />

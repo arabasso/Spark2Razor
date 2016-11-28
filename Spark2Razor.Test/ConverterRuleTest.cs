@@ -33,6 +33,10 @@ namespace Spark2Razor.Test
 
         [TestCase("${Html.Partial(\"Index\")}",
             ExpectedResult = "${Html.Partial(&&quot;;Index&&quot;;)}")]
+        [TestCase("selected?{value}",
+            ExpectedResult = "selected?{value}")]
+        [TestCase("selected?{value == \"10\"}",
+            ExpectedResult = "selected?{value &&eq;;&&eq;; &&quot;;10&&quot;;}")]
         [TestCase("<a href=\"${Html.Partial(\"Index\")}\" title=\"${TempData[\"Value\"]}\">Link</a>",
             ExpectedResult = "<a href=\"${Html.Partial(&&quot;;Index&&quot;;)}\" title=\"${TempData[&&quot;;Value&&quot;;]}\">Link</a>")]
         [TestCase("<a if=\"TempData[\"Value\"] == null\" href=\"#\">Link</a>",

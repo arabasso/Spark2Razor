@@ -11,6 +11,9 @@ namespace Spark2Razor.Rules
         public static readonly Regex
             BalancedDoubleQuotes = new Regex(@"""((?>""\b(?<DEPTH>)|\b""(?<-DEPTH>)|[^""]*)*(?(DEPTH)(?!)))""");
 
+        public static readonly Regex
+            HasContentRegex = new Regex(@"\?\{((?>[^\{\}]+|\{(?<Depth>)|\}(?<-Depth>))*(?(Depth)(?!)))\}");
+
         protected static Dictionary<string, string>
             SpecialStrings = new Dictionary<string, string>
             {
@@ -36,7 +39,8 @@ namespace Spark2Razor.Rules
             base(ContentRule.ContentRegex,
                 BalancedParenthesisRegex,
                 BalancedBracketsRegex,
-                BalancedDoubleQuotes)
+                BalancedDoubleQuotes,
+                HasContentRegex)
         {
         }
 
