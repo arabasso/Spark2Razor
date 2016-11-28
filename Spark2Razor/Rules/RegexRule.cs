@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Spark2Razor.Rules
@@ -18,6 +17,8 @@ namespace Spark2Razor.Rules
         {
             var text = input;
 
+            var index = 0;
+
             foreach (var regex in _regex)
             {
                 var match = regex.Match(text);
@@ -28,18 +29,21 @@ namespace Spark2Razor.Rules
                 {
                     var length = text.Length;
 
-                    text = Convert(text, position, match);
+                    text = Convert(index, text, position, match);
 
                     position += match.Index + match.Length + (text.Length - length);
 
                     match = regex.Match(text.Substring(position));
                 }
+
+                index++;
             }
 
             return text;
         }
 
-        public abstract string Convert(string text,
+        public abstract string Convert(int index,
+            string text,
             int position,
             Match match);
     }

@@ -9,7 +9,8 @@ namespace Spark2Razor.Rules
         public static readonly Regex
             ContentRegex = new Regex(@"\$\{((?>[^\{\}]+|\{(?<Depth>)|\}(?<-Depth>))*(?(Depth)(?!)))\}");
 
-        public override string Convert(string text,
+        public override string Convert(int index,
+            string text,
             int position,
             Match match)
         {

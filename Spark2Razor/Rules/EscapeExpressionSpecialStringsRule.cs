@@ -9,8 +9,7 @@ namespace Spark2Razor.Rules
         RegexRule
     {
         public static readonly Regex
-            //BalancedDoubleQuotes = new Regex(@"""((?>""\b(?<DEPTH>)|\b""(?<-DEPTH>)|[^""]*)*(?(DEPTH)(?!)))""");
-            BalancedDoubleQuotes = new Regex("\"(.*?)\"");
+            BalancedDoubleQuotes = new Regex(@"""((?>""\b(?<DEPTH>)|\b""(?<-DEPTH>)|[^""]*)*(?(DEPTH)(?!)))""");
 
         protected static Dictionary<string, string>
             SpecialStrings = new Dictionary<string, string>
@@ -41,7 +40,8 @@ namespace Spark2Razor.Rules
         {
         }
 
-        public override string Convert(string text,
+        public override string Convert(int index,
+            string text,
             int position,
             Match match)
         {

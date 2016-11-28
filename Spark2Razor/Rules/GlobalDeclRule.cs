@@ -12,7 +12,10 @@ namespace Spark2Razor.Rules
         {
         }
 
-        public override string Convert(string text, Node node, int position, Match match)
+        public override string Convert(string text,
+            Node node,
+            int position,
+            Match match)
         {
             var attributeName = node.Attributes.AllKeys
                 .First(w => w != "type");

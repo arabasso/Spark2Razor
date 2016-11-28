@@ -150,5 +150,22 @@ namespace Spark2Razor.Test
         {
             return Convert<GlobalDeclRule>(input);
         }
+
+        [TestCase("<div if=\"!true\">Text</div>",
+            ExpectedResult = "\r\n@if (!true)\r\n{\r\n\t<text>\r\n<div>Text</div>\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<div class=\"clear-both\" if=\"!string.IsNullOrEmpty(tramite.Complemento)\">Text</div>",
+            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<div class=\"clear-both\">Text</div>\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<div if=\"!string.IsNullOrEmpty(tramite.Complemento)\" class=\"clear-both\">Text</div>",
+            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<div class=\"clear-both\">Text</div>\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<img src=\"~/Dot.gif\" if=\"!string.IsNullOrEmpty(tramite.Complemento)\" />",
+            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<img src=\"~/Dot.gif\" />\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<div class=\"clear-both\" if=\"!string.IsNullOrEmpty(tramite.Complemento)\"><img src=\"~/Dot.gif\" if=\"!string.IsNullOrEmpty(tramite.Complemento)\" /></div>",
+            ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<div class=\"clear-both\">\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<img src=\"~/Dot.gif\" />\r\n\t</text>\r\n}\r\n</div>\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<div if=\"true\"><span><img src=\"~/Dot.gif\" if=\"false\" /></span></div>",
+            ExpectedResult = "\r\n@if (true)\r\n{\r\n\t<text>\r\n<div><span>\r\n@if (false)\r\n{\r\n\t<text>\r\n<img src=\"~/Dot.gif\" />\r\n\t</text>\r\n}\r\n</span></div>\r\n\t</text>\r\n}\r\n")]
+        public string Attribute_if(string input)
+        {
+            return Convert<AttributeIfRule>(input);
+        }
     }
 }

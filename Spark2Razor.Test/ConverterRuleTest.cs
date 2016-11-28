@@ -64,7 +64,7 @@ namespace Spark2Razor.Test
             {
             }
 
-            public override string Convert(string text, int position, Match match)
+            public override string Convert(int index,string text, int position, Match match)
             {
                 Count++;
 

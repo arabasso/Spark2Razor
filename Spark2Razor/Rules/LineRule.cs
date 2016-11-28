@@ -19,11 +19,15 @@ namespace Spark2Razor.Rules
             _attribute = attribute;
         }
 
-        public override string Convert(string text, int position, Match match)
+        public override string Convert(int index,
+            string text,
+            int position,
+            Match match)
         {
             var node = new Node(match.Groups[2].Value,
                 match.Groups[3].Value.Trim(),
-                null);
+                "",
+                true);
 
             if (!string.IsNullOrEmpty(_attribute) && !node.Attributes.AllKeys.Contains(_attribute)) return text;
 

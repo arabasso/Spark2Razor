@@ -28,13 +28,15 @@ namespace Spark2Razor.Rules
             _attribute = attribute;
         }
 
-        public override string Convert(string text,
+        public override string Convert(int index,
+            string text,
             int position,
             Match match)
         {
             var node = new Node(match.Groups[1].Value,
                 match.Groups[2].Value,
-                match.Groups["inner"].Value);
+                match.Groups["inner"].Value,
+                true);
 
             return Convert(text, node, position, match);
         }

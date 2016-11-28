@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Spark2Razor.Rules;
 
 namespace Spark2Razor
 {
