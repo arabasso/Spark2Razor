@@ -26,10 +26,10 @@ namespace Spark2Razor.Rules
 
             if (node.IsBlock)
             {
-                node.Inner = Convert(node.Inner);
+                node.Inner = Convert(node.Inner).Replace("\r\n", "\r\n\t");
             }
 
-            var value = $"{arguments.Initialization}\r\n@foreach ({expression})\r\n{{{arguments.Declaration}\r\n\t<text>\r\n{node.Inner}\r\n\t</text>{arguments.Increment}\r\n}}\r\n";
+            var value = $"{arguments.Initialization}\r\n@foreach ({expression})\r\n{{{arguments.Declaration}{arguments.Increment}\r\n\t<text>\r\n\t\t{node.Inner}\r\n\t</text>\r\n}}\r\n";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

@@ -26,7 +26,7 @@ namespace Spark2Razor.Rules
                 _variable = $"__i{_index}";
 
                 Initialization = $"\r\n@{{ var {_variable} = 0; }}";
-                Increment = $"\r\n{_variable}++;";
+                Increment = $"\r\n\t{_variable}++;";
             }
 
             if (HasIndex)
@@ -52,7 +52,7 @@ namespace Spark2Razor.Rules
 
         private string DeclareVariable(string variable, string suffix, string expression)
         {
-            return $"\r\nvar {variable}{suffix} = {expression};";
+            return $"\r\n\tvar {variable}{suffix} = {expression};";
         }
 
         public bool IsEven { get; }

@@ -23,12 +23,12 @@ namespace Spark2Razor.Rules
 
             if (node.IsBlock)
             {
-                node.Inner = Convert(node.Inner);
+                node.Inner = Convert(node.Inner).Replace("\r\n", "\r\n\t");
             }
 
             var inner = node.Text;
 
-            var value = $"\r\n@if ({expression})\r\n{{\r\n\t<text>\r\n{inner}\r\n\t</text>\r\n}}\r\n";
+            var value = $"\r\n@if ({expression})\r\n{{\r\n\t<text>\r\n\t\t{inner}\r\n\t</text>\r\n}}\r\n";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

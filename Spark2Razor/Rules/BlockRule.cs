@@ -53,11 +53,11 @@ namespace Spark2Razor.Rules
                 expression = node.Attributes[_attribute];
             }
 
-            var inner = Convert(node.Inner);
+            var inner = Convert(node.Inner).Replace("\r\n", "\r\n\t");
 
             var name = string.Format(_format, expression);
 
-            var value = $"\r\n{name}\r\n{{\r\n\t<text>\r\n{inner}\r\n\t</text>\r\n}}\r\n";
+            var value = $"\r\n{name}\r\n{{\r\n\t<text>\r\n\t\t{inner}\r\n\t</text>\r\n}}\r\n";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

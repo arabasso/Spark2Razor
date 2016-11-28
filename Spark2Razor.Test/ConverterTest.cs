@@ -69,7 +69,7 @@ namespace Spark2Razor.Test
         [TestCase("<for each=\"var i in ViewBag.ListI\"><for each=\"var j in ViewBag.ListJ\">${i} - ${j}</for></for>",
             ExpectedResult = "\r\n@foreach (var i in ViewBag.ListI)\r\n{\r\n\t<text>\r\n\r\n@foreach (var j in ViewBag.ListJ)\r\n{\r\n\t<text>\r\n${i} - ${j}\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
         [TestCase("<for each=\"var i in ViewBag.ListI\"><for each=\"var j in ViewBag.ListJ\">${iIndex} - ${j}</for></for>",
-            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (var i in ViewBag.ListI)\r\n{\r\nvar iIndex = __i0;\r\n\t<text>\r\n\r\n@foreach (var j in ViewBag.ListJ)\r\n{\r\n\t<text>\r\n${iIndex} - ${j}\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n__i0++;\r\n}\r\n")]
+            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (var i in ViewBag.ListI)\r\n{\r\n\tvar iIndex = __i0;\r\n\t__i0++;\r\n\t<text>\r\n\r\n@foreach (var j in ViewBag.ListJ)\r\n{\r\n\t<text>\r\n${iIndex} - ${j}\r\n\t</text>\r\n}\r\n\r\n\t</text>\r\n}\r\n")]
         public string For_conversion(string input)
         {
             return Convert<ForRule>(input);
@@ -177,9 +177,9 @@ namespace Spark2Razor.Test
         [TestCase("<option each=\"Sino.Siscam.Dados.Models.AutorModel autor in remetentes\" value=\"${autor.Id}\" data-tipo=\"${(int)autor.TipoAutor}\" data-tipo-descricao=\"${Sino.Siscam.Dados.Descricoes.TiposAutorLista.First(f => f.Tipo == autor.TipoAutor).Descricao}\">${autor.UsarApelido ? autor.Apelido : autor.Nome}</option>",
             ExpectedResult = "\r\n@foreach (Sino.Siscam.Dados.Models.AutorModel autor in remetentes)\r\n{\r\n\t<text>\r\n<option value=\"${autor.Id}\" data-tipo=\"${(int)autor.TipoAutor}\" data-tipo-descricao=\"${Sino.Siscam.Dados.Descricoes.TiposAutorLista.First(f => f.Tipo == autor.TipoAutor).Descricao}\">${autor.UsarApelido ? autor.Apelido : autor.Nome}</option>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<div each=\"var t in tramitacoes\" class=\"item item-impar?{tIsEven}\"><use file=\"FluxoItem\" fluxo=\"t\" entrada=\"false\" /></div>",
-            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (var t in tramitacoes)\r\n{\r\nvar tIsEven = (__i0 % 2 == 0);\r\n\t<text>\r\n<div class=\"item item-impar?{tIsEven}\"><use file=\"FluxoItem\" fluxo=\"t\" entrada=\"false\" /></div>\r\n\t</text>\r\n__i0++;\r\n}\r\n")]
+            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (var t in tramitacoes)\r\n{\r\n\tvar tIsEven = (__i0 % 2 == 0);\r\n\t__i0++;\r\n\t<text>\r\n<div class=\"item item-impar?{tIsEven}\"><use file=\"FluxoItem\" fluxo=\"t\" entrada=\"false\" /></div>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<input each=\"Siscam.Dados.Models.FluxoModel tramitacao in ViewBag.Tramitacao\" type=\"hidden\" name=\"Tramitacao[${tramitacaoIndex}]\" value=\"${tramitacao.Id}\" />",
-            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (Siscam.Dados.Models.FluxoModel tramitacao in ViewBag.Tramitacao)\r\n{\r\nvar tramitacaoIndex = __i0;\r\n\t<text>\r\n<input type=\"hidden\" name=\"Tramitacao[${tramitacaoIndex}]\" value=\"${tramitacao.Id}\" />\r\n\t</text>\r\n__i0++;\r\n}\r\n")]
+            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (Siscam.Dados.Models.FluxoModel tramitacao in ViewBag.Tramitacao)\r\n{\r\n\tvar tramitacaoIndex = __i0;\r\n\t__i0++;\r\n\t<text>\r\n<input type=\"hidden\" name=\"Tramitacao[${tramitacaoIndex}]\" value=\"${tramitacao.Id}\" />\r\n\t</text>\r\n}\r\n")]
         public string Attribute_each_conversion(string input)
         {
             var output = Convert<AttributeEachRule>(input);
