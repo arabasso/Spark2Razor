@@ -8,8 +8,8 @@ namespace Spark2Razor.Rules
         private readonly string _attribute;
         private readonly string _format;
 
-        protected BlockRule(string name) :
-            base(new Regex($@"<({name})\s*(.*?)\s*>(?<inner>(?><\1.*?>(?<LEVEL>)|</\1>(?<-LEVEL>)|\s?(?!<\1.*?>|</\1>).)*\s?(?(LEVEL)(?!)))</\1>"))
+        protected BlockRule(string tag) :
+            base(new Regex($@"<({tag})\s*(.*?)\s*>(?<inner>(?>\s?<\1.*?>(?<LEVEL>)|</\1>(?<-LEVEL>)|\s?(?!<\1.*?>|</\1>).)*\s?(?(LEVEL)(?!)))</\1>"))
         {
         }
 
