@@ -2,12 +2,12 @@
 
 namespace Spark2Razor.Rules
 {
-    [ConverterRuleOrder(21)]
-    public class AttributeIfRule :
+    [ConverterRuleOrder(20)]
+    public class AttributeEachRule :
         NodeRule
     {
-        public AttributeIfRule() :
-            base(@"\w+", "if")
+        public AttributeEachRule() :
+            base(@"\w+", "each")
         {
         }
 
@@ -17,9 +17,13 @@ namespace Spark2Razor.Rules
             int position,
             Match match)
         {
-            var expression = node.Attributes["if"];
+            var expression = node.Attributes["each"];
 
-            node.Attributes.Remove("if");
+            var eachExpression = new EachExpression(expression);
+
+            var arguments = eachExpression.ExtractArguments(match.Value);
+
+            node.Attributes.Remove("each");
 
             if (node.IsBlock)
             {
@@ -28,7 +32,7 @@ namespace Spark2Razor.Rules
 
             var inner = node.Text;
 
-            var value = $"\r\n@if ({expression})\r\n{{\r\n\t<text>\r\n{inner}\r\n\t</text>\r\n}}\r\n";
+            var value = $"{arguments.Initialization}\r\n@foreach ({expression})\r\n{{{arguments.Declaration}\r\n\t<text>\r\n{inner}\r\n\t</text>{arguments.Increment}\r\n}}\r\n";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }

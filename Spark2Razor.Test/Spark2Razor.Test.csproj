@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ConverterRuleTest.cs" />
     <Compile Include="ConverterTest.cs" />
+    <Compile Include="ExpressionTest.cs" />
     <Compile Include="ExtensionsTest.cs" />
     <Compile Include="NodeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -19,6 +19,8 @@ namespace Spark2Razor.Test
         [SetUp]
         public void SetUp()
         {
+            EachArguments.InTest = true;
+
             _converter = new Converter();
 
             _converter.AddRule(new EscapeSpecialStringsRule());
@@ -163,9 +165,24 @@ namespace Spark2Razor.Test
             ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<div class=\"clear-both\">\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n<img src=\"~/Dot.gif\" />\r\n\t</text>\r\n}\r\n</div>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<div if=\"true\"><span><img src=\"~/Dot.gif\" if=\"false\" /></span></div>",
             ExpectedResult = "\r\n@if (true)\r\n{\r\n\t<text>\r\n<div><span>\r\n@if (false)\r\n{\r\n\t<text>\r\n<img src=\"~/Dot.gif\" />\r\n\t</text>\r\n}\r\n</span></div>\r\n\t</text>\r\n}\r\n")]
-        public string Attribute_if(string input)
+        public string Attribute_if_conversion(string input)
         {
             return Convert<AttributeIfRule>(input);
+        }
+
+        [TestCase("<div each=\"var t in tramitacoes.Where(w => w.Status != StatusFluxo.Finalizado)\" class=\"text-center\">Text</div>",
+            ExpectedResult = "\r\n@foreach (var t in tramitacoes.Where(w => w.Status != StatusFluxo.Finalizado))\r\n{\r\n\t<text>\r\n<div class=\"text-center\">Text</div>\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<option each=\"Sino.Siscam.Dados.Models.AutorModel autor in remetentes\" value=\"${autor.Id}\" data-tipo=\"${(int)autor.TipoAutor}\" data-tipo-descricao=\"${Sino.Siscam.Dados.Descricoes.TiposAutorLista.First(f => f.Tipo == autor.TipoAutor).Descricao}\">${autor.UsarApelido ? autor.Apelido : autor.Nome}</option>",
+            ExpectedResult = "\r\n@foreach (Sino.Siscam.Dados.Models.AutorModel autor in remetentes)\r\n{\r\n\t<text>\r\n<option value=\"${autor.Id}\" data-tipo=\"${(int)autor.TipoAutor}\" data-tipo-descricao=\"${Sino.Siscam.Dados.Descricoes.TiposAutorLista.First(f => f.Tipo == autor.TipoAutor).Descricao}\">${autor.UsarApelido ? autor.Apelido : autor.Nome}</option>\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<div each=\"var t in tramitacoes\" class=\"item item-impar?{tIsEven}\"><use file=\"FluxoItem\" fluxo=\"t\" entrada=\"false\" /></div>",
+            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (var t in tramitacoes)\r\n{\r\nvar tIsEven = (__i0 % 2 == 0);\r\n\t<text>\r\n<div class=\"item item-impar?{tIsEven}\"><use file=\"FluxoItem\" fluxo=\"t\" entrada=\"false\" /></div>\r\n\t</text>\r\n__i0++;\r\n}\r\n")]
+        [TestCase("<input each=\"Siscam.Dados.Models.FluxoModel tramitacao in ViewBag.Tramitacao\" type=\"hidden\" name=\"Tramitacao[${tramitacaoIndex}]\" value=\"${tramitacao.Id}\" />",
+            ExpectedResult = "\r\n@{ var __i0 = 0; }\r\n@foreach (Siscam.Dados.Models.FluxoModel tramitacao in ViewBag.Tramitacao)\r\n{\r\nvar tramitacaoIndex = __i0;\r\n\t<text>\r\n<input type=\"hidden\" name=\"Tramitacao[${tramitacaoIndex}]\" value=\"${tramitacao.Id}\" />\r\n\t</text>\r\n__i0++;\r\n}\r\n")]
+        public string Attribute_each_conversion(string input)
+        {
+            var output = Convert<AttributeEachRule>(input);
+
+            return output;
         }
     }
 }
