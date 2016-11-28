@@ -189,6 +189,10 @@ namespace Spark2Razor.Test
 
         [TestCase("<tr each=\"var arquivo in arquivos\" class=\"item-impar?{arquivoIsEven}\"></tr>",
             ExpectedResult = "<tr each=\"var arquivo in arquivos\" class=\"@(arquivoIsEven ? \"item-impar\" : \"\")\"></tr>")]
+        [TestCase("<tr each=\"var arquivo in arquivos\" class=\"item item-impar?{arquivoIsEven}\"></tr>",
+            ExpectedResult = "<tr each=\"var arquivo in arquivos\" class=\"item @(arquivoIsEven ? \"item-impar\" : \"\")\"></tr>")]
+        [TestCase("<tr each=\"var arquivo in arquivos\" class=\"item item-impar?{arquivoIsEven} item-par?{arquivoIsOdd} item-selected\"></tr>",
+            ExpectedResult = "<tr each=\"var arquivo in arquivos\" class=\"item @(arquivoIsEven ? \"item-impar\" : \"\") @(arquivoIsOdd ? \"item-par\" : \"\") item-selected\"></tr>")]
         [TestCase("<option each=\"var ta in ViewBag.TipoAutores\" value=\"${ta.Tipo}\" selected=\"selected?{ta.Tipo == ViewBag.TipoAutorPadrao}\">${ta.Descricao}</option>",
             ExpectedResult = "<option each=\"var ta in ViewBag.TipoAutores\" value=\"${ta.Tipo}\" selected=\"@(ta.Tipo == ViewBag.TipoAutorPadrao ? \"selected\" : \"\")\">${ta.Descricao}</option>")]
         [TestCase("<div each=\"var t in tramitacoes.Where(w => w.Status != StatusFluxo.Finalizado)\" class=\"item item-impar?{tIsEven} item-destaque?{t.Status == StatusFluxo.Enviado} margin-bottom-10\" data-lote=\"${t.Status}\"><use file=\"FluxoItem\" fluxo=\"t\" entrada=\"true\" /></div>",
