@@ -16,7 +16,7 @@ namespace Spark2Razor.Rules
             int position,
             Match match)
         {
-            var expression = node.Attributes["each"];
+            var expression = ConvertToString(node.Attributes["each"].Trim());
 
             var eachExpression = new EachExpression(expression);
 

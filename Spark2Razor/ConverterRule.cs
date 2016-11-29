@@ -30,11 +30,14 @@ namespace Spark2Razor
         public static readonly Regex
             BalancedBracketsRegex = new Regex(@"\[((?>[^\[\]]+|\[(?<Depth>)|\](?<-Depth>))*(?(Depth)(?!)))\]");
 
+        public static readonly Regex
+            SingleQuotesRegex = new Regex($@"{QuotesUnescaped}(.{{2,}}?){QuotesUnescaped}");
+
         public abstract string Convert(string input);
 
         public static string ConvertToString(string input)
         {
-            var text = Regex.Replace(input, $"^{QuotesUnescaped}(.{{2,}}?){QuotesUnescaped}$", $"{DoubleQuotesEscaped}$1{DoubleQuotesEscaped}");
+            var text = SingleQuotesRegex.Replace(input, $"{DoubleQuotesEscaped}$1{DoubleQuotesEscaped}");
 
             text = Regex.Replace(text, $"^{QuotesUnescaped}{QuotesUnescaped}$", DoubleQuotesEscaped + DoubleQuotesEscaped);
 

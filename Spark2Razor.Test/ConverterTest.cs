@@ -169,6 +169,8 @@ namespace Spark2Razor.Test
             ExpectedResult = "\r\n@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n{\r\n\t<text>\r\n\t\t<div class=\"clear-both\">\r\n\t@if (!string.IsNullOrEmpty(tramite.Complemento))\r\n\t{\r\n\t\t<text>\r\n\t\t\t<img src=\"~/Dot.gif\" />\r\n\t\t</text>\r\n\t}\r\n\t</div>\r\n\t</text>\r\n}\r\n")]
         [TestCase("<div if=\"true\"><span><img src=\"~/Dot.gif\" if=\"false\" /></span></div>",
             ExpectedResult = "\r\n@if (true)\r\n{\r\n\t<text>\r\n\t\t<div><span>\r\n\t@if (false)\r\n\t{\r\n\t\t<text>\r\n\t\t\t<img src=\"~/Dot.gif\" />\r\n\t\t</text>\r\n\t}\r\n\t</span></div>\r\n\t</text>\r\n}\r\n")]
+        [TestCase("<div if=\"System.IO.Path.GetExtension(ni.Imagem) == \'.mp3\' || System.IO.Path.GetExtension(ni.Imagem) == \'.wma\' || System.IO.Path.GetExtension(ni.Imagem) == \'.wav\' \">Text</div>",
+            ExpectedResult = "\r\n@if (System.IO.Path.GetExtension(ni.Imagem) == \".mp3\" || System.IO.Path.GetExtension(ni.Imagem) == \".wma\" || System.IO.Path.GetExtension(ni.Imagem) == \".wav\")\r\n{\r\n\t<text>\r\n\t\t<div>Text</div>\r\n\t</text>\r\n}\r\n")]
         public string Attribute_if_conversion(string input)
         {
             return Convert<AttributeIfRule>(input);

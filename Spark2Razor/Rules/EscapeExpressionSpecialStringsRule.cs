@@ -14,9 +14,6 @@ namespace Spark2Razor.Rules
         public static readonly Regex
             HasContentRegex = new Regex(@"\?\{((?>[^\{\}]+|\{(?<Depth>)|\}(?<-Depth>))*(?(Depth)(?!)))\}");
 
-        public static readonly Regex
-            SingleQuotesRegex = new Regex(@"\'(.{2,}?)\'");
-
         protected static Dictionary<string, string>
             SpecialStrings = new Dictionary<string, string>
             {
@@ -60,7 +57,7 @@ namespace Spark2Razor.Rules
 
             if (index <= 3)
             {
-                value = SingleQuotesRegex.Replace(value, $"{DoubleQuotesEscaped}$1{DoubleQuotesEscaped}");
+                value = ConvertToString(value);
             }
 
             return text.Replace(match.Groups[1].Value, value, position + match.Index, match.Length);

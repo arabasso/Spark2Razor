@@ -17,7 +17,7 @@ namespace Spark2Razor.Rules
             int position,
             Match match)
         {
-            var expression = node.Attributes["if"];
+            var expression = ConvertToString(node.Attributes["if"].Trim());
 
             node.Attributes.Remove("if");
 
