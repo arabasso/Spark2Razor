@@ -4,13 +4,14 @@ using System.Text.RegularExpressions;
 namespace Spark2Razor.Rules
 {
     public abstract class LineRule :
-        RegexRule
+        ConverterRule
     {
         private readonly string _attribute;
+        private readonly Regex _regex;
 
-        protected LineRule(string tag) :
-            base(new Regex($@"(<({tag})([^>]*))(?>/)>"))
+        protected LineRule(string tag)
         {
+            _regex = new Regex($@"(<({tag})([^>]*))(?>/)>");
         }
 
         protected LineRule(string tag, string attribute) :
@@ -19,15 +20,16 @@ namespace Spark2Razor.Rules
             _attribute = attribute;
         }
 
-        public override string Convert(int index,
-            string text,
+        public override string Convert(string input)
+        {
+            return Convert(_regex, input, Convert);
+        }
+
+        public string Convert(string text,
             int position,
             Match match)
         {
-            var node = new Node(match.Groups[2].Value,
-                match.Groups[3].Value.Trim(),
-                "",
-                true);
+            var node = new Node(match.Groups[2].Value, match.Groups[3].Value.Trim(), "", true);
 
             if (!string.IsNullOrEmpty(_attribute) && !node.Attributes.AllKeys.Contains(_attribute)) return text;
 

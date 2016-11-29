@@ -3,23 +3,23 @@
 namespace Spark2Razor.Rules
 {
     public abstract class AttributeRule :
-        RegexRule
+        ConverterRule
     {
         public static readonly Regex
             AttributeRegex = new Regex(@"=""((?>""\b(?<DEPTH>)|\b""(?<-DEPTH>)|[^""]*)*(?(DEPTH)(?!)))""");
 
-        protected AttributeRule() :
-            base(AttributeRegex)
+        public override string Convert(string input)
         {
+            return Convert(AttributeRegex, input, Convert);
         }
 
-        public override string Convert(int index, string text, int position, Match match)
+        public string Convert(string text, int position, Match match)
         {
             var value = match.Groups[1].Value;
 
-            if (string.IsNullOrEmpty(value)) return text;
-
-            return text.Replace(value, ConvertAttribute(value, position, match), position + match.Index, match.Length);
+            return string.IsNullOrEmpty(value)
+                ? text :
+                text.Replace(value, ConvertAttribute(value, position, match), position + match.Index, match.Length);
         }
 
         public abstract string ConvertAttribute(string text, int position, Match match);

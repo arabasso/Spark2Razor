@@ -4,15 +4,12 @@ namespace Spark2Razor.Rules
 {
     [ConverterRuleOrder(2)]
     public class ContentRule :
-        RegexRule
+        ConverterRule
     {
         public static readonly Regex
             ContentRegex = new Regex(@"\$\{((?>[^\{\}]+|\{(?<Depth>)|\}(?<-Depth>))*(?(Depth)(?!)))\}");
 
-        public override string Convert(int index,
-            string text,
-            int position,
-            Match match)
+        public string Convert(string text, int position, Match match)
         {
             var value = match.Groups[1].Value.Trim();
 
@@ -27,9 +24,9 @@ namespace Spark2Razor.Rules
                 || Regex.IsMatch(input, @"^\s*\(.+?\)\s*.+?");
         }
 
-        public ContentRule() :
-            base(ContentRegex)
+        public override string Convert(string input)
         {
+            return Convert(ContentRegex, input, Convert);
         }
     }
 }
