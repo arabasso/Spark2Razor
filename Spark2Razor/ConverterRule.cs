@@ -39,7 +39,7 @@ namespace Spark2Razor
         public static readonly Dictionary<Regex, string> 
             Regex = new Dictionary<Regex, string>
             {
-                { new Regex($@"(({EqualEscaped}{EqualEscaped}|\!{EqualEscaped}|{LessThanEscaped}|{LessThanEscaped}{EqualEscaped}|{GreaterThanEscaped}|{GreaterThanEscaped}{EqualEscaped})\s*)\'(.*?([^\']+))\'"), $"$1{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}" },
+                { new Regex($@"(({EqualEscaped}{EqualEscaped}|\!{EqualEscaped}|{LessThanEscaped}|{LessThanEscaped}{EqualEscaped}|{GreaterThanEscaped}|{GreaterThanEscaped}{EqualEscaped}|{EqualEscaped})\s*)\'(.*?([^\']+))\'"), $"$1{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}" },
                 { new Regex(@"^((\s*)\'([^\']+)\'(\s*))$"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
                 { new Regex(@"^((\s*)\'([^\']+)\'(\s*))$"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
                 { new Regex(@"((\(\s*)\'([^\']+)\'(\s*\)))"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },

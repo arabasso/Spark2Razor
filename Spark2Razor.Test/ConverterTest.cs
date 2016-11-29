@@ -224,9 +224,20 @@ namespace Spark2Razor.Test
             ExpectedResult = "<tr each=\"var arquivo in arquivos\" class=\"item-impar?{ext == \".gif\"}\"></tr>")]
         [TestCase("<div if=\"ViewBag.Informacao == 'presencial'\"></div>",
             ExpectedResult = "<div if=\"ViewBag.Informacao == 'presencial'\"></div>")]
+        [TestCase("<p if=\"string.IsNullOrEmpty(Model.ConfirmarSenha)\">${Html.TextBoxFor(e=>e.Cnpj, new{@Class='CampoCPF width50', onblur=\"validarCPF(this.value)\", title=\"Informe o CPF\"})}</p>",
+            ExpectedResult = "<p if=\"string.IsNullOrEmpty(Model.ConfirmarSenha)\">${Html.TextBoxFor(e=>e.Cnpj, new{@Class=\"CampoCPF width50\", onblur=\"validarCPF(this.value)\", title=\"Informe o CPF\"})}</p>")]
         public string Quotes_to_double_quotes_if_string(string input)
         {
             return _converter.Convert(input);
+        }
+
+        [TestCase("<h3 if=\"!string.IsNullOrEmpty(ViewData[\"Funcionamento\"])\">${ViewData[\"Funcionamento\"]}</h3>",
+            ExpectedResult = "<h3 if=\"!string.IsNullOrEmpty((string)ViewData[\"Funcionamento\"])\">${ViewData[\"Funcionamento\"]}</h3>")]
+        [TestCase("<h3 if=\"!string.IsNullOrEmpty(TempData[\"Funcionamento\"])\">${ViewData[\"Funcionamento\"]}</h3>",
+            ExpectedResult = "<h3 if=\"!string.IsNullOrEmpty((string)TempData[\"Funcionamento\"])\">${ViewData[\"Funcionamento\"]}</h3>")]
+        public string Cast_conversion(string input)
+        {
+            return Convert<CastRule>(input);
         }
     }
 }
