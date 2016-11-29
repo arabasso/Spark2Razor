@@ -205,5 +205,18 @@ namespace Spark2Razor.Test
         {
             return Convert<HasAttributeRule>(input);
         }
+
+        [TestCase("${Url.Action('Index','Home')}",
+            ExpectedResult = "${Url.Action(\"Index\",\"Home\")}")]
+        [TestCase("<li if=\"ViewData[\'Administrador\'] != null\"></li>",
+            ExpectedResult = "<li if=\"ViewData[\"Administrador\"] != null\"></li>")]
+        [TestCase("${Url.Action(\"Editar\",\"Usuario\", new {id=ViewData[\'IdUsuario\']})}",
+            ExpectedResult = "${Url.Action(\"Editar\",\"Usuario\", new {id=ViewData[\"IdUsuario\"]})}")]
+        [TestCase("<tr each=\"var arquivo in arquivos\" class=\"item-impar?{ext == '.gif'}\"></tr>",
+            ExpectedResult = "<tr each=\"var arquivo in arquivos\" class=\"item-impar?{ext == \".gif\"}\"></tr>")]
+        public string Quotes_to_double_quotes_if_string(string input)
+        {
+            return _converter.Convert(input);
+        }
     }
 }
