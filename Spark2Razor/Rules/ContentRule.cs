@@ -29,7 +29,7 @@ namespace Spark2Razor.Rules
 
         private bool IsComplex(string input, string suffix)
         {
-            return System.Text.RegularExpressions.Regex.IsMatch(suffix, @"^[^<""]$")
+            return System.Text.RegularExpressions.Regex.IsMatch(suffix, @"^[^<""\s]$")
                 || System.Text.RegularExpressions.Regex.IsMatch(input, @".+?\?.+?\:.+?")
                 || System.Text.RegularExpressions.Regex.IsMatch(input, @"^\s*\(.+?\)\s*.+?");
         }
