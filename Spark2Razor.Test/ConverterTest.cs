@@ -222,8 +222,8 @@ namespace Spark2Razor.Test
             ExpectedResult = "${Url.Action(\"Editar\",\"Usuario\", new {id=ViewData[\"IdUsuario\"]})}")]
         [TestCase("<tr each=\"var arquivo in arquivos\" class=\"item-impar?{ext == '.gif'}\"></tr>",
             ExpectedResult = "<tr each=\"var arquivo in arquivos\" class=\"item-impar?{ext == \".gif\"}\"></tr>")]
-        [TestCase("<div if=\"ViewBag.Informacao == 'presencial\'\"></div>",
-            ExpectedResult = "<div if=\"ViewBag.Informacao == 'presencial\'\"></div>")]
+        [TestCase("<div if=\"ViewBag.Informacao == 'presencial'\"></div>",
+            ExpectedResult = "<div if=\"ViewBag.Informacao == 'presencial'\"></div>")]
         public string Quotes_to_double_quotes_if_string(string input)
         {
             return _converter.Convert(input);
