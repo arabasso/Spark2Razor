@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Spark2Razor
@@ -34,13 +36,25 @@ namespace Spark2Razor
         public static readonly Regex
             SingleQuotesRegex = new Regex($@"{QuotesUnescaped}(.{{2,}}?){QuotesUnescaped}");
 
+        public static readonly Dictionary<Regex, string> 
+            Regex = new Dictionary<Regex, string>
+            {
+                { new Regex($@"(({EqualEscaped}{EqualEscaped}|\!{EqualEscaped}|{LessThanEscaped}|{LessThanEscaped}{EqualEscaped}|{GreaterThanEscaped}|{GreaterThanEscaped}{EqualEscaped})\s*)\'(.*?([^\']+))\'"), $"$1{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}" },
+                { new Regex(@"^((\s*)\'([^\']+)\'(\s*))$"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
+                { new Regex(@"^((\s*)\'([^\']+)\'(\s*))$"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
+                { new Regex(@"((\(\s*)\'([^\']+)\'(\s*\)))"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
+                { new Regex(@"((\[\s*)\'([^\']+)\'(\s*\]))"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
+                { new Regex(@"((\(\s*)\'([^\']+)\'(\s*,))"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
+                { new Regex(@"((\,\s*)\'([^\']+)\'(\s*\)))"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
+            };
+
         public abstract string Convert(string input);
 
         public static string ConvertToString(string input)
         {
-            var text = SingleQuotesRegex.Replace(input, $"{DoubleQuotesEscaped}$1{DoubleQuotesEscaped}");
+            var text = Regex.Aggregate(input, (current, pair) => pair.Key.Replace(current, pair.Value));
 
-            text = Regex.Replace(text, $"^{QuotesUnescaped}{QuotesUnescaped}$", DoubleQuotesEscaped + DoubleQuotesEscaped);
+            text = System.Text.RegularExpressions.Regex.Replace(text, $"^{QuotesUnescaped}{QuotesUnescaped}$", DoubleQuotesEscaped + DoubleQuotesEscaped);
 
             return text;
         }

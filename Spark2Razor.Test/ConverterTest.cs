@@ -40,6 +40,8 @@ namespace Spark2Razor.Test
 
         [TestCase("${Html.Partial(\"Index\")}",
             ExpectedResult = "@Html.Partial(\"Index\")")]
+        [TestCase("<img src=\"~/${ext}.gif\" />",
+            ExpectedResult = "<img src=\"~/@(ext).gif\" />")]
         [TestCase("${ String.Format(\"{0:dd/MM/yyyy}\",a.Data)}",
             ExpectedResult = "@String.Format(\"{0:dd/MM/yyyy}\",a.Data)")]
         [TestCase("<a href=\"${Html.Partial(\"Index\")}\" title=\"${TempData[\"Value\"]}\">Link</a>",
@@ -208,14 +210,20 @@ namespace Spark2Razor.Test
             return Convert<HasAttributeRule>(input);
         }
 
+        [TestCase("${Html.Partial('Index')}",
+            ExpectedResult = "${Html.Partial(\"Index\")}")]
         [TestCase("${Url.Action('Index','Home')}",
             ExpectedResult = "${Url.Action(\"Index\",\"Home\")}")]
+        [TestCase("${date.ToString(\"dd 'de' MM 'de' yyyy\")}",
+            ExpectedResult = "${date.ToString(\"dd 'de' MM 'de' yyyy\")}")]
         [TestCase("<li if=\"ViewData[\'Administrador\'] != null\"></li>",
             ExpectedResult = "<li if=\"ViewData[\"Administrador\"] != null\"></li>")]
         [TestCase("${Url.Action(\"Editar\",\"Usuario\", new {id=ViewData[\'IdUsuario\']})}",
             ExpectedResult = "${Url.Action(\"Editar\",\"Usuario\", new {id=ViewData[\"IdUsuario\"]})}")]
         [TestCase("<tr each=\"var arquivo in arquivos\" class=\"item-impar?{ext == '.gif'}\"></tr>",
             ExpectedResult = "<tr each=\"var arquivo in arquivos\" class=\"item-impar?{ext == \".gif\"}\"></tr>")]
+        [TestCase("<div if=\"ViewBag.Informacao == 'presencial\'\"></div>",
+            ExpectedResult = "<div if=\"ViewBag.Informacao == 'presencial\'\"></div>")]
         public string Quotes_to_double_quotes_if_string(string input)
         {
             return _converter.Convert(input);

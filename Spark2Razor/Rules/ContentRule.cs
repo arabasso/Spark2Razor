@@ -13,15 +13,25 @@ namespace Spark2Razor.Rules
         {
             var value = match.Groups[1].Value.Trim();
 
+            var index = position + match.Index + match.Length;
+
+            var suffix = string.Empty;
+
+            if (index < text.Length)
+            {
+                suffix = text[index].ToString();
+            }
+
             return text.Replace(match.Value,
-                IsComplex(value) ? $"@({value})" : $"@{value}",
+                IsComplex(value, suffix) ? $"@({value})" : $"@{value}",
                 position + match.Index, match.Length);
         }
 
-        private bool IsComplex(string input)
+        private bool IsComplex(string input, string suffix)
         {
-            return Regex.IsMatch(input, @".+?\?.+?\:.+?")
-                || Regex.IsMatch(input, @"^\s*\(.+?\)\s*.+?");
+            return System.Text.RegularExpressions.Regex.IsMatch(suffix, @"^[^<""]$")
+                || System.Text.RegularExpressions.Regex.IsMatch(input, @".+?\?.+?\:.+?")
+                || System.Text.RegularExpressions.Regex.IsMatch(input, @"^\s*\(.+?\)\s*.+?");
         }
 
         public override string Convert(string input)
