@@ -46,6 +46,7 @@ namespace Spark2Razor
                 { new Regex(@"((\[\s*)\'([^\']+)\'(\s*\]))"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
                 { new Regex(@"((\(\s*)\'([^\']+)\'(\s*,))"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
                 { new Regex(@"((\,\s*)\'([^\']+)\'(\s*\)))"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
+                { new Regex(@"((\,\s*)\'([^\']+)\'(\s*,))"), $"$2{DoubleQuotesEscaped}$3{DoubleQuotesEscaped}$4" },
             };
 
         public abstract string Convert(string input);

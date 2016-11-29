@@ -226,6 +226,8 @@ namespace Spark2Razor.Test
             ExpectedResult = "<div if=\"ViewBag.Informacao == 'presencial'\"></div>")]
         [TestCase("<p if=\"string.IsNullOrEmpty(Model.ConfirmarSenha)\">${Html.TextBoxFor(e=>e.Cnpj, new{@Class='CampoCPF width50', onblur=\"validarCPF(this.value)\", title=\"Informe o CPF\"})}</p>",
             ExpectedResult = "<p if=\"string.IsNullOrEmpty(Model.ConfirmarSenha)\">${Html.TextBoxFor(e=>e.Cnpj, new{@Class=\"CampoCPF width50\", onblur=\"validarCPF(this.value)\", title=\"Informe o CPF\"})}</p>")]
+        [TestCase("<a href=\"${Url.Action('Listar','Composicao', new{id=m.Composicao.Id})}\"> ${m.Composicao.Titulo} (${m.Cargo.Descricao})</a> <br/>",
+            ExpectedResult = "<a href=\"${Url.Action(\"Listar\",\"Composicao\", new{id=m.Composicao.Id})}\"> ${m.Composicao.Titulo} (${m.Cargo.Descricao})</a> <br/>")]
         public string Quotes_to_double_quotes_if_string(string input)
         {
             return _converter.Convert(input);
@@ -238,6 +240,13 @@ namespace Spark2Razor.Test
         public string Cast_conversion(string input)
         {
             return Convert<CastRule>(input);
+        }
+
+        [TestCase("<div if=\"TempData.Contains(\"Aviso\")\"><strong> ${TempData[\"Aviso\"]}</strong></div>",
+            ExpectedResult = "<div if=\"TempData.ContainsKey(\"Aviso\")\"><strong> ${TempData[\"Aviso\"]}</strong></div>")]
+        public string Fixes_conversion(string input)
+        {
+            return Convert<FixesRule>(input);
         }
     }
 }
