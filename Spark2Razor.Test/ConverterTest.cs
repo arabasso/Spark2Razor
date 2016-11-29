@@ -89,7 +89,7 @@ namespace Spark2Razor.Test
         }
 
         [TestCase("<use master=\"Site\" />",
-            ExpectedResult = "@{ Layout = \"~/Views/Shared/Site.cshtml\"; }")]
+            ExpectedResult = "@{ Layout = \"../Shared/Site.cshtml\"; }")]
         [TestCase("<use content=\"view\" />",
             ExpectedResult = "<use content=\"view\" />")]
         public string Use_master_conversion(string input)

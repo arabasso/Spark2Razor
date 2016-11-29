@@ -15,7 +15,7 @@ namespace Spark2Razor.Rules
         {
             var master = node.Attributes["master"];
 
-            var value = $"@{{ Layout = \"~/Views/Shared/{master}.cshtml\"; }}";
+            var value = $"@{{ Layout = \"../Shared/{master}.cshtml\"; }}";
 
             return text.Replace(match.Value, value, position + match.Index, match.Length);
         }
