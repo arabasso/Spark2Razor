@@ -14,7 +14,7 @@ namespace Spark2Razor.Rules
             int position,
             Match match)
         {
-            var value = match.Groups[1].Value;
+            var value = match.Groups[1].Value.Trim();
 
             return text.Replace(match.Value,
                 IsComplex(value) ? $"@({value})" : $"@{value}",

@@ -40,6 +40,8 @@ namespace Spark2Razor.Test
 
         [TestCase("${Html.Partial(\"Index\")}",
             ExpectedResult = "@Html.Partial(\"Index\")")]
+        [TestCase("${ String.Format(\"{0:dd/MM/yyyy}\",a.Data)}",
+            ExpectedResult = "@String.Format(\"{0:dd/MM/yyyy}\",a.Data)")]
         [TestCase("<a href=\"${Html.Partial(\"Index\")}\" title=\"${TempData[\"Value\"]}\">Link</a>",
             ExpectedResult = "<a href=\"@Html.Partial(\"Index\")\" title=\"@TempData[\"Value\"]\">Link</a>")]
         [TestCase("${value > 10 ? \"10\" : \"\"}",
