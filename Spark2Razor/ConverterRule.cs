@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Spark2Razor
 {
@@ -40,6 +41,26 @@ namespace Spark2Razor
             var text = SingleQuotesRegex.Replace(input, $"{DoubleQuotesEscaped}$1{DoubleQuotesEscaped}");
 
             text = Regex.Replace(text, $"^{QuotesUnescaped}{QuotesUnescaped}$", DoubleQuotesEscaped + DoubleQuotesEscaped);
+
+            return text;
+        }
+
+        protected string Convert(Regex regex, string text, Func<string, int, Match, string> func)
+        {
+            var match = regex.Match(text);
+
+            var position = 0;
+
+            while (match.Success)
+            {
+                var length = text.Length;
+
+                text = func(text, position, match);
+
+                position += match.Index + match.Length + (text.Length - length);
+
+                match = regex.Match(text.Substring(position));
+            }
 
             return text;
         }

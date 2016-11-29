@@ -21,20 +21,9 @@ namespace Spark2Razor.Rules
 
             foreach (var regex in _regex)
             {
-                var match = regex.Match(text);
+                var i = index;
 
-                var position = 0;
-
-                while (match.Success)
-                {
-                    var length = text.Length;
-
-                    text = Convert(index, text, position, match);
-
-                    position += match.Index + match.Length + (text.Length - length);
-
-                    match = regex.Match(text.Substring(position));
-                }
+                text = Convert(regex, text, (t, p, m) => Convert(i, t, p, m));
 
                 index++;
             }
