@@ -233,17 +233,12 @@ namespace Spark2Razor.Test
             return _converter.Convert(input);
         }
 
+        [TestCase("<div if=\"TempData.Contains(\"Aviso\")\"><strong> ${TempData[\"Aviso\"]}</strong></div>",
+            ExpectedResult = "<div if=\"TempData.ContainsKey(\"Aviso\")\"><strong> ${TempData[\"Aviso\"]}</strong></div>")]
         [TestCase("<h3 if=\"!string.IsNullOrEmpty(ViewData[\"Funcionamento\"])\">${ViewData[\"Funcionamento\"]}</h3>",
             ExpectedResult = "<h3 if=\"!string.IsNullOrEmpty((string)ViewData[\"Funcionamento\"])\">${ViewData[\"Funcionamento\"]}</h3>")]
         [TestCase("<h3 if=\"!string.IsNullOrEmpty(TempData[\"Funcionamento\"])\">${ViewData[\"Funcionamento\"]}</h3>",
             ExpectedResult = "<h3 if=\"!string.IsNullOrEmpty((string)TempData[\"Funcionamento\"])\">${ViewData[\"Funcionamento\"]}</h3>")]
-        public string Cast_conversion(string input)
-        {
-            return Convert<CastRule>(input);
-        }
-
-        [TestCase("<div if=\"TempData.Contains(\"Aviso\")\"><strong> ${TempData[\"Aviso\"]}</strong></div>",
-            ExpectedResult = "<div if=\"TempData.ContainsKey(\"Aviso\")\"><strong> ${TempData[\"Aviso\"]}</strong></div>")]
         public string Fixes_conversion(string input)
         {
             return Convert<FixesRule>(input);

@@ -51,7 +51,6 @@
     <Compile Include="Rules\AttributeIfRule.cs" />
     <Compile Include="Rules\AttributeRule.cs" />
     <Compile Include="Rules\FixesRule.cs" />
-    <Compile Include="Rules\CastRule.cs" />
     <Compile Include="Rules\EachArguments.cs" />
     <Compile Include="Rules\EachExpression.cs" />
     <Compile Include="Rules\HasAttributeRule.cs" />

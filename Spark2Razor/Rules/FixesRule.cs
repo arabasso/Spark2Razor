@@ -11,7 +11,8 @@ namespace Spark2Razor.Rules
         private static readonly Dictionary<Regex, string> 
             FixRegex = new Dictionary<Regex, string>
             {
-                { new Regex(@"(TempData\.Contains\s*\()"), "TempData.ContainsKey("}
+                { new Regex(@"(TempData\.Contains\s*\()"), "TempData.ContainsKey("},
+                { new Regex(@"(string\.IsNullOrEmpty\s*\(\s*)((View|Temp)Data)"), "$1(string)$2"}
             };
 
         public override string Convert(string input)
