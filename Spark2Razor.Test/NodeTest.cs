@@ -22,6 +22,8 @@ namespace Spark2Razor.Test
 
         [TestCase("span", "class=\"text-center\"", "Text", true,
             ExpectedResult = "<span class=\"text-center\">Text</span>")]
+        [TestCase("span", "class=w", "Text", true,
+            ExpectedResult = "<span class=\"w\">Text</span>")]
         [TestCase("img", "src=\"~/Img/Dot.gif\"", null, false,
             ExpectedResult = "<img src=\"~/Img/Dot.gif\" />")]
         public string Node_text(string tag, string attributes, string inner, bool isBlock)

@@ -7,7 +7,7 @@ namespace Spark2Razor.Rules
     public class Node
     {
         public static readonly Regex
-            AttributesRegex = new Regex(@"([\w-]+)\s*=\s*""(.*?)""");
+            AttributesRegex = new Regex(@"((?<name>[\w-]+)\s*=\s*""(?<value>.*?)"")|((?<name>[\w-]+)=(?<value>\w+))");
 
         public Node(string name,
             NameValueCollection attributes,
@@ -31,7 +31,7 @@ namespace Spark2Razor.Rules
 
             foreach (Match match in AttributesRegex.Matches(attributes))
             {
-                Attributes.Add(match.Groups[1].Value, match.Groups[2].Value);
+                Attributes.Add(match.Groups["name"].Value, match.Groups["value"].Value);
             }
         }
 
